@@ -6,7 +6,7 @@ export const ButtonStyle = styled.button`
   font-size: 1.1rem;
   background: #e5556e;
   height: 50px;
-  width: 300px;
+  width: 350px;
   margin-top: 10px;
 
   border: 0;

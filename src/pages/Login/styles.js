@@ -1,10 +1,31 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  height: 100vh;
+  width: 100vw;
+  border: 1px solid white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  small {
+    color: #6a666f;
+    font-size: 1rem;
+  }
+`;
+
+export const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-height: 500px;
+  max-width: 400px;
+
+  button {
+    width: 100%;
+  }
 `;
 
 export const Logo = styled.img`
@@ -14,31 +35,22 @@ export const Logo = styled.img`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: flex-start;
   padding: 30px;
-  width: 300px;
+  width: 100%;
 `;
 
 export const Input = styled.input.attrs({
   placeholderTextColor: '#999',
 })`
-  background: #fff;
-  border-radius: 4px;
-  padding: 0 20px;
+  background: transparent;
+  border: 0;
   margin: 5px;
-  height: 52px;
-  font-size: 16px;
-  color: #333;
-`;
-
-export const Button = styled.button`
-  background: #5dc4b3;
-  border-radius: 4px;
-  height: 52px;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
+  height: 50px;
+  width: 100%;
+  font-size: 1.2rem;
+  color: #fff;
 `;
 
 export const Error = styled.p`

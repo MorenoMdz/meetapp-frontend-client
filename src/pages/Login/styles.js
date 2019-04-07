@@ -1,5 +1,16 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Logo = styled.img`
+  width: 32px;
+`;
+
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -15,6 +26,7 @@ export const Input = styled.input.attrs({
   background: #fff;
   border-radius: 4px;
   padding: 0 20px;
+  margin: 5px;
   height: 52px;
   font-size: 16px;
   color: #333;

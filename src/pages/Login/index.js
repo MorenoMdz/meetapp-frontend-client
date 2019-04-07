@@ -1,7 +1,10 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component } from 'react';
 
-import { Form, Input, Error } from './styles';
+import {
+  Container, Logo, Form, Input, Error,
+} from './styles';
 import Button from '../../components/Button';
+import logo from '../../assets/logo.svg';
 
 class Login extends Component {
   state = { email: '', error: '', loading: true };
@@ -20,14 +23,15 @@ class Login extends Component {
     const { error, loading } = this.state;
 
     return (
-      <Fragment>
+      <Container>
+        <Logo src={logo} alt="Logo" />
         <Form onSubmit={this.handleSubmit}>
           {error && <Error>TODO error</Error>}
           <Input onChange={e => this.handleChange(e.target.value)} placeholder="email" />
           <Input onChange={e => this.handleChange(e.target.value)} placeholder="password" />
           <Button type="submit">Entrar</Button>
         </Form>
-      </Fragment>
+      </Container>
     );
   }
 }

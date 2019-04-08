@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     color: #FFF;
     background: #23202C;
+    font-family:Helvetica;
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;
   }

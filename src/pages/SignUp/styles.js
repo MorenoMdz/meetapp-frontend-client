@@ -8,11 +8,6 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  small {
-    color: #6a666f;
-    font-size: 1rem;
-  }
 `;
 
 export const Card = styled.div`
@@ -20,11 +15,18 @@ export const Card = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 380px;
   max-height: 500px;
-  max-width: 400px;
+  max-width: 600px;
 
   button {
     width: 100%;
+  }
+
+  a {
+    color: #6a666f;
+    font-size: 1rem;
+    text-decoration: none;
   }
 `;
 

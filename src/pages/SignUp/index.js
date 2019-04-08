@@ -11,6 +11,7 @@ class Login extends Component {
     name: '',
     email: '',
     password: '',
+    password_confirmation: '',
     error: false,
     loading: false,
   };
@@ -21,7 +22,13 @@ class Login extends Component {
     console.log(this.state);
 
     // TODO POST to server to login
-    this.setState({ email: '', password: '', loading: true });
+    this.setState({
+      name: '',
+      email: '',
+      password: '',
+      password_confirmation: '',
+      loading: true,
+    });
   };
 
   render() {
@@ -37,7 +44,7 @@ class Login extends Component {
             <label>Nome</label>
             <Input
               onChange={e => this.setState({ name: e.target.value })}
-              placeholder="Digite seu email"
+              placeholder="Digite seu nome"
             />
             <label>Email</label>
             <Input
@@ -48,6 +55,10 @@ class Login extends Component {
             <Input
               onChange={e => this.setState({ password: e.target.value })}
               placeholder="Sua senha secreta"
+            />
+            <Input
+              onChange={e => this.setState({ password_confirmation: e.target.value })}
+              placeholder="Confirme sua senha secreta"
             />
             <Button type="submit">{loading ? 'carregando' : 'Criar conta'}</Button>
           </Form>

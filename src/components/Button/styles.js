@@ -11,4 +11,6 @@ export const ButtonStyle = styled.button`
 
   border: 0;
   border-radius: 25px;
+
+  cursor: pointer;
 `;

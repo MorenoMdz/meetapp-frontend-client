@@ -47,6 +47,7 @@ class Login extends Component {
               Parece que é seu primeiro acesso por aqui, comece escolhendo algumas preferências para
               selecionarmos os melhores meetups pra você:
             </p>
+            <h4>Preferências</h4>
             {preferences.map(pref => (
               <div className="checkbox">
                 <input
@@ -64,7 +65,7 @@ class Login extends Component {
               </div>
             ))}
             {error && <Error>TODO error</Error>}
-            <Button type="submit">{loading ? 'carregando' : 'Continuar'}</Button>
+            <Button type="submit">{loading ? 'Carregando' : 'Continuar'}</Button>
           </Form>
         </Card>
       </Container>

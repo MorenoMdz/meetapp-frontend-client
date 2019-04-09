@@ -82,6 +82,7 @@ export const Input = styled.input.attrs({
   background: transparent;
   border: 0;
   margin: 20px 0;
+  margin-top: 0;
   height: 50px;
   width: 100%;
   font-size: 1.2rem;

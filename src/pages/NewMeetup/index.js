@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import {
   Card, Container, Logo, Form, Input, Error,
 } from './styles';
 import Button from '../../components/Button';
+import Navbar from '../../components/Navbar';
 
 class Login extends Component {
   state = {
-    name: 'Moreno',
+    title: '',
+    description: '',
+    file: '',
     preferences: [
       { title: 'Front-end' },
       { title: 'Back-end', checked: true },
@@ -26,67 +29,64 @@ class Login extends Component {
     console.log(this.state);
 
     // TODO POST to server to login
-    this.setState({ email: '', password: '', loading: true });
+    this.setState({
+      email: '',
+      password: '',
+      file: '',
+      loading: true,
+    });
   };
 
   render() {
-    const {
-      name, email, preferences, error, loading,
-    } = this.state;
+    const { preferences, error, loading } = this.state;
 
     return (
-      <Container>
-        <Card>
-          <strong>
-            Olá,
-            {name}
-          </strong>
+      <Fragment>
+        <Navbar />
+        <Container>
+          <Card>
+            <Form onSubmit={this.handleSubmit} name="login">
+              <label htmlFor="title">Título</label>
+              <Input
+                onChange={e => this.setState({ title: e.target.value })}
+                placeholder="Digite o título do Meetup"
+              />
+              <label htmlFor="description">Descrição</label>
+              <Input
+                onChange={e => this.setState({ description: e.target.value })}
+                placeholder="Descreva o seu Meetup"
+              />
+              <label htmlFor="file">Image de Capa</label>
+              <Input
+                type="file"
+                id="cover-image"
+                accept="image/gif, image/jpeg, image/png"
+                onChange={e => this.setState({ file: e.target.value })}
+              />
 
-          <Form onSubmit={this.handleSubmit} name="login">
-            <label htmlFor="name">Nome</label>
-            <Input
-              value={name}
-              onChange={e => this.setState({ email: e.target.value })}
-              placeholder="Nome"
-            />
-            <label htmlFor="email">Email</label>
-            <Input
-              value={email}
-              onChange={e => this.setState({ email: e.target.value })}
-              placeholder="Digite seu email"
-            />
-            <label>Senha</label>
-            <Input
-              onChange={e => this.setState({ password: e.target.value })}
-              placeholder="Sua senha secreta"
-            />
-            <label>Confirmação de senha</label>
-            <Input
-              onChange={e => this.setState({ password: e.target.value })}
-              placeholder="Confirme sua senha secreta"
-            />
-            <h4>Preferências</h4>
-            {preferences.map(pref => (
-              <div className="checkbox">
-                <input
-                  id={pref.title}
-                  type="checkbox"
-                  name="preference"
-                  value={pref.checked}
-                  checked={pref.checked}
-                  onClick={(e) => {}}
-                />
-                <label htmlFor={pref.title}>
-                  <span />
-                  {pref.title}
-                </label>
-              </div>
-            ))}
-            {error && <Error>TODO error</Error>}
-            <Button type="submit">{loading ? 'Carregando' : 'Salvar'}</Button>
-          </Form>
-        </Card>
-      </Container>
+              <h4>Preferências</h4>
+              {preferences.map(pref => (
+                <div className="checkbox">
+                  <input
+                    id={pref.title}
+                    type="checkbox"
+                    name="preference"
+                    value={pref.checked}
+                    checked={pref.checked}
+                    onClick={(e) => {}}
+                  />
+                  <label htmlFor={pref.title}>
+                    <span />
+                    {pref.title}
+                  </label>
+                </div>
+              ))}
+              {error && <Error>TODO error</Error>}
+              <Button type="submit">{loading ? 'Carregando' : 'Salvar'}</Button>
+            </Form>
+          </Card>
+        </Container>
+      </Fragment>
     );
   }
 }

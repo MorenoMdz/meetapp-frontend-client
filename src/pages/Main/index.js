@@ -8,6 +8,7 @@ import Profile from '../Profile';
 import Meetup from '../Meetup';
 import NewMeetup from '../NewMeetup';
 import Dashboard from '../Dashboard';
+import Search from '../Search';
 
 const Main = () => (
   <Fragment>
@@ -17,7 +18,8 @@ const Main = () => (
     {/* <Profile /> */}
     {/* <Meetup /> */}
     {/* <NewMeetup /> */}
-    <Dashboard />
+    {/* <Dashboard /> */}
+    <Search />
   </Fragment>
 );
 

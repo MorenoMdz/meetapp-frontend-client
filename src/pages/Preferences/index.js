@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import {
-  Card, Container, Logo, Form, Input, Error,
+  Card, Container, Form, Error,
 } from './styles';
 import Button from '../../components/Button';
 

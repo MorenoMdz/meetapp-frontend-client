@@ -1,9 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import {
-  Card, Container, Logo, Form, Input, Error,
-} from './styles';
-import Button from '../../components/Button';
+import { Container } from './styles';
 import Navbar from '../../components/Navbar';
 import HorizontalList from '../../components/HorizontalList';
 
@@ -92,7 +89,7 @@ class Login extends Component {
 
   render() {
     const {
-      registeredMeetups, nextMeetups, recomendedMeetups, error, loading,
+      registeredMeetups, nextMeetups, recomendedMeetups, error,
     } = this.state;
 
     return (

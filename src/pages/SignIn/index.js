@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as LoginActions } from '../../store/ducks/login';
-
-import { isAuthenticated } from '../../services/auth';
 
 import {
   Card, Container, Logo, Form, Input, Error,
@@ -21,7 +18,7 @@ class Login extends Component {
 
   handleSubmit = async (e) => {
     const { history } = this.props;
-    console.log(history);
+
     e.preventDefault();
 
     const { loginRequest } = this.props;
@@ -54,7 +51,7 @@ class Login extends Component {
             />
             <Button type="submit">{loading ? 'carregando' : 'Entrar'}</Button>
           </Form>
-          <a href="#">Criar conta grátis</a>
+          <a href="/signup">Criar conta grátis</a>
         </Card>
       </Container>
     );

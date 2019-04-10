@@ -6,9 +6,9 @@ import { Container } from './styles';
 const Navbar = () => (
   <Container>
     <img src={logo} alt="Logo" />
-    <a href="#">Inicio</a>
-    <a href="#">Buscar</a>
-    <a href="#">Novo meet</a>
+    <a href="/dashboard">Inicio</a>
+    <a href="/search">Buscar</a>
+    <a href="/newmeetup">Novo meet</a>
   </Container>
 );
 

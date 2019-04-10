@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import {
-  Card, Container, Logo, Form, Input, Error,
+  Card, Container, Form, Input, Error,
 } from './styles';
 import Button from '../../components/Button';
 import Navbar from '../../components/Navbar';

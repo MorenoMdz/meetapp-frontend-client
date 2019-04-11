@@ -34,7 +34,7 @@ export function* signupUser(action) {
     login(loginResponse.data.token); // TODO flash msg logged in!
 
     yield put(SignupActions.signupSuccess(response.data));
-    history.push('/dashboard');
+    history.push('/preferences');
   } catch (error) {
     yield put(SignupActions.signupFailure('Algo deu errado, tente novamente'));
   }

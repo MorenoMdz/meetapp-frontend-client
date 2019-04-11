@@ -7,7 +7,6 @@ export const Types = {
 
 /* Reducer */
 const INITIAL_STATE = {
-  token: '',
   isLogged: false,
   loading: false,
   error: '',
@@ -20,6 +19,7 @@ export default function login(state = INITIAL_STATE, action) {
     case Types.SUCCESS:
       return {
         ...state,
+        id: action.payload.user_id,
         token: action.payload.token,
         isLogged: true,
         error: '',
@@ -45,9 +45,9 @@ export const Creators = {
   }),
 
   // send from saga to redux
-  loginSuccess: ({ token }) => ({
+  loginSuccess: ({ token, user_id }) => ({
     type: Types.SUCCESS,
-    payload: { token },
+    payload: { token, user_id },
   }),
 
   loginFailure: error => ({

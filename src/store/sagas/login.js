@@ -18,9 +18,10 @@ export function* loginUser(action) {
       password,
     });
 
-    login(response.data.token);
-
     yield put(LoginActions.loginSuccess(response.data));
+    login(response.data.token);
+    localStorage.setItem('@meetapp:user_id', response.data.user_id);
+
     history.push('/dashboard');
   } catch (error) {
     yield put(LoginActions.loginFailure('Usuário ou Senha inválidos'));

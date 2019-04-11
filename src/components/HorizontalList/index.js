@@ -6,7 +6,7 @@ const HorizontalList = ({ meetups, loading, error }) => (
   <Container>
     {error && <div>TODO error</div>}
     {meetups.map(meetup => (
-      <MeetupCard className="checkbox">
+      <MeetupCard className="checkbox" key={meetup.title}>
         <img src={meetup.cover} alt="Meetup cover" />
         <div id="title-card">
           <div id="title-text">

@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 92vh;
-  width: 100vw;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,14 +14,10 @@ export const Card = styled.div`
   justify-content: center;
   align-items: flex-start;
   width: 380px;
-  max-height: 500px;
+  margin-top: 100px;
 
   p {
     margin-bottom: 20px;
-  }
-
-  h4 {
-    margin-bottom: 10px;
   }
 
   button {
@@ -44,9 +39,14 @@ export const Form = styled.form`
   label {
     font-size: 18px;
   }
+`;
 
-  #cover-image {
-    margin-top: 10px;
+export const Preferences = styled.div`
+  padding-top: 30px;
+
+  h4 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
   }
 
   input[type='checkbox']:not(old) {
@@ -122,4 +122,20 @@ export const Error = styled.p`
   text-align: center;
   font-size: 16px;
   font-weight: bold;
+`;
+
+export const DateWrapper = styled.div`
+  .react-datepicker {
+    padding: 15px;
+  }
+
+  #date {
+    color: #fff;
+    font-size: 1rem;
+    background: #444;
+    padding: 5px;
+    text-align: center;
+    border: 0;
+  }
+  padding: 5px;
 `;

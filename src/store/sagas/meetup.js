@@ -6,11 +6,10 @@ import { Creators as MeetupActions } from '../ducks/meetup';
 
 export function* newMeetup(action) {
   console.log('new Meetup called from saga!');
-  // const id = localStorage.getItem('@meetapp:user_id');
   const {
     title,
     description,
-    cover,
+    cover_url,
     event_date,
     // history,
     preferences,
@@ -21,25 +20,22 @@ export function* newMeetup(action) {
   }
 
   const newPreferences = preferences.filter(pref => pref.checked).map(pref => pref.id);
-
+  console.error(cover_url);
   try {
     const response = yield call(api.post, 'meetups', {
       title,
       description,
-      cover,
+      cover_url,
       event_date,
       preferences: newPreferences,
     });
 
-    console.log(response.status);
-
-    //   // TODO flash msg user update in!
     const data = { ...response.data, flash: 'Novo meetup salvo com sucesso!' };
 
     yield put(MeetupActions.newMeetupSuccess(data));
     //   // history.push('/dashboard');
   } catch (error) {
-    console.error('erro!');
+    console.error(error);
     yield put(MeetupActions.newMeetupFailure('Algo deu errado, tente novamente'));
   }
 }

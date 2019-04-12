@@ -9,12 +9,12 @@ class Login extends Component {
   state = {
     name: 'Moreno',
     preferences: [
-      { title: 'Front-end' },
-      { title: 'Back-end', checked: true },
-      { title: 'Mobile' },
-      { title: 'DevOps' },
-      { title: 'Gestão' },
-      { title: 'Marketing' },
+      { id: 1, title: 'Front-end' },
+      { id: 2, title: 'Back-end', checked: true },
+      { id: 3, title: 'Mobile' },
+      { id: 4, title: 'DevOps' },
+      { id: 5, title: 'Gestão' },
+      { id: 6, title: 'Marketing' },
     ],
     error: false,
     loading: false,

@@ -11,18 +11,6 @@ import Button from '../../components/Button';
 
 class Profile extends Component {
   state = {
-    // name: '',
-    // email: '',
-    // password: '',
-    // password_confirmation: '',
-    // preferences: [
-    //   // { id: 1, name: 'Front-end' },
-    //   // { id: 2, name: 'Back-end' },
-    //   // { id: 3, name: 'Mobile' },
-    //   // { id: 4, name: 'DevOps' },
-    //   // { id: 5, name: 'Gestão' },
-    //   // { id: 6, name: 'Marketing' },
-    // ],
     prefLoading: true,
     flash: '',
     error: '',
@@ -118,7 +106,7 @@ class Profile extends Component {
                       name="preference"
                       value={pref.checked}
                       checked={pref.checked}
-                      onChange={e => this.handlePrefChange(e, pref.name)}
+                      onClick={e => this.handlePrefChange(e, pref.name)}
                     />
                     <label htmlFor={pref.name}>
                       <span />

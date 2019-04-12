@@ -87,10 +87,33 @@ export const Input = styled.input.attrs({
   border: 0;
   margin: 20px 0;
   margin-top: 0;
+  padding: 10px;
   height: 50px;
   width: 100%;
   font-size: 1.2rem;
   color: #ccc;
+`;
+
+export const TextArea = styled.textarea.attrs({
+  placeholderTextColor: '#999',
+})`
+  background: transparent;
+  border: 0;
+  margin: 20px 0;
+  margin-top: 0;
+  padding: 10px;
+  height: 100px;
+  width: 100%;
+  font-size: 1.2rem;
+  color: #ccc;
+`;
+
+export const Success = styled.p`
+  color: #b061ff;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
 `;
 
 export const Error = styled.p`

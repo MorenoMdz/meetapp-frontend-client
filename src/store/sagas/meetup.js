@@ -5,22 +5,28 @@ import api from '../../services/api';
 import { Creators as MeetupActions } from '../ducks/meetup';
 
 export function* newMeetup(action) {
-  console.log('new Meetup called from saga!');
   const {
     title,
     description,
     cover_url,
     event_date,
-    // history,
+    history,
     preferences,
+    street,
+    number,
+    district,
+    city,
+    state,
   } = action.payload.data;
 
-  if (!title || !description) {
-    return yield put(MeetupActions.newMeetupFailure('Título e Descrição são obrigatórios'));
+  if (!title || !description || !street || !number || !city || !state) {
+    return yield put(
+      MeetupActions.newMeetupFailure('Título, Descrição e Endereço são obrigatórios'),
+    );
   }
 
   const newPreferences = preferences.filter(pref => pref.checked).map(pref => pref.id);
-  console.error(cover_url);
+
   try {
     const response = yield call(api.post, 'meetups', {
       title,
@@ -28,12 +34,20 @@ export function* newMeetup(action) {
       cover_url,
       event_date,
       preferences: newPreferences,
+      address: {
+        street,
+        number,
+        district,
+        city,
+        state,
+      },
     });
 
     const data = { ...response.data, flash: 'Novo meetup salvo com sucesso!' };
+    const meetup_id = response.data.id;
 
     yield put(MeetupActions.newMeetupSuccess(data));
-    //   // history.push('/dashboard');
+    // history.push(`/meetup/${meetup_id}`);
   } catch (error) {
     console.error(error);
     yield put(MeetupActions.newMeetupFailure('Algo deu errado, tente novamente'));

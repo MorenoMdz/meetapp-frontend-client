@@ -46,41 +46,39 @@ class Meetup extends Component {
     loading: false,
   };
 
-  async componentDidMount() {
-    const response = await api.get('files');
-
-    this.setState({
-      uploadedFiles: response.data.map(file => ({
-        id: file._id,
-        name: file.name,
-        readableSize: filesize(file.size),
-        preview: file.url,
-        uploaded: true,
-        url: file.url,
-      })),
-    });
-  }
-
   handleSubmit = async (e) => {
     e.preventDefault();
 
     const { newMeetupRequest } = this.props;
     const {
-      title, description, uploadedFiles, preferences, event_date,
+      title,
+      description,
+      uploadedFiles,
+      preferences,
+      event_date,
+      street,
+      number,
+      district,
+      city,
+      state,
+      history,
     } = this.state;
 
     const cover_url = uploadedFiles.length ? uploadedFiles[0].url : null;
-    const file_id = uploadedFiles.length ? uploadedFiles[0].id : null;
-
-    console.log('file_id', file_id);
 
     newMeetupRequest({
       title,
       description,
-      cover_url,
-      file_id,
-      event_date,
+      uploadedFiles,
       preferences,
+      event_date,
+      street,
+      number,
+      district,
+      city,
+      state,
+      cover_url,
+      history,
     });
   };
 
@@ -115,7 +113,6 @@ class Meetup extends Component {
     this.setState({
       uploadedFiles: this.state.uploadedFiles.concat(uploadedFiles),
     });
-    console.log('id', uploadedFiles[0].id);
 
     uploadedFiles.forEach(this.processUpload);
   };
@@ -150,7 +147,6 @@ class Meetup extends Component {
         },
       })
       .then((response) => {
-        console.log(response.data.id);
         this.updateFile(uploadedFile.id, {
           uploaded: true,
           id: response.data.id,
@@ -194,21 +190,48 @@ class Meetup extends Component {
                   onChange={date => this.handleDateChange(date)}
                 />
               </DateWrapper>
-
               <label htmlFor="description">Descrição</label>
               <TextArea
                 id="description"
                 onChange={e => this.setState({ description: e.target.value })}
                 placeholder="Descreva o seu Meetup"
               />
-
+              <h4>Local</h4>
+              <label>Rua</label>
+              <Input
+                type="text"
+                onChange={e => this.setState({ street: e.target.value })}
+                placeholder="Nome da rua"
+              />
+              <label>Número</label>
+              <Input
+                type="text"
+                onChange={e => this.setState({ number: e.target.value })}
+                placeholder="Número"
+              />
+              <label>Bairro</label>
+              <Input
+                type="text"
+                onChange={e => this.setState({ district: e.target.value })}
+                placeholder="Bairro"
+              />
+              <label>Cidade</label>
+              <Input
+                type="text"
+                onChange={e => this.setState({ city: e.target.value })}
+                placeholder="Cidade"
+              />
+              <label>Estado</label>
+              <Input
+                type="text"
+                onChange={e => this.setState({ state: e.target.value })}
+                placeholder="Estado"
+              />
               <label htmlFor="file">Imagem de Capa</label>
               {!uploadedFiles.length && <Upload onUpload={this.handleUpload} />}
-
               {!!uploadedFiles.length && (
                 <FileList files={uploadedFiles} onDelete={this.handleDelete} />
               )}
-
               <Preferences>
                 <h4>Preferências</h4>
                 {(this.state.prefLoading && <p>Carregando...</p>)

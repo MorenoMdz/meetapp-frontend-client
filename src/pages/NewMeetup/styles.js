@@ -6,6 +6,11 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  h4 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+  }
 `;
 
 export const Card = styled.div`
@@ -43,11 +48,6 @@ export const Form = styled.form`
 
 export const Preferences = styled.div`
   padding-top: 30px;
-
-  h4 {
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-  }
 
   input[type='checkbox']:not(old) {
     width: 2em;
@@ -104,6 +104,7 @@ export const TextArea = styled.textarea.attrs({
   padding: 10px;
   height: 100px;
   width: 100%;
+  border-bottom: 1px solid #333;
   font-size: 1.2rem;
   color: #ccc;
 `;

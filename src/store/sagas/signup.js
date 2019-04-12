@@ -31,7 +31,7 @@ export function* signupUser(action) {
       password,
     });
 
-    login(loginResponse.data.token); // TODO flash msg logged in!
+    login(loginResponse.data.token);
 
     yield put(SignupActions.signupSuccess(response.data));
     history.push('/preferences');

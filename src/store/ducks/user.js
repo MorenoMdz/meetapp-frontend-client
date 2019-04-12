@@ -18,6 +18,7 @@ const INITIAL_STATE = {
   password: '',
   password_confirmation: '',
   preferences: [],
+  flash: '',
 };
 
 export default function user(state = INITIAL_STATE, action) {
@@ -49,6 +50,7 @@ export default function user(state = INITIAL_STATE, action) {
         name: action.payload.data.name,
         email: action.payload.data.email,
         preferences: action.payload.data.preferences,
+        flash: action.payload.data.flash,
         error: '',
         loading: false,
       };

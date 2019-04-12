@@ -33,11 +33,11 @@ export function* userUpdate(action) {
       password_confirmation,
       preferences: newPreferences,
     });
-    console.log(response.data.preferences);
 
     // TODO flash msg user update in!
+    const data = { ...response.data, flash: 'Atualizado com sucesso!' };
 
-    yield put(UserActions.userSuccess(response.data));
+    yield put(UserActions.userSuccess(data));
     // history.push('/dashboard');
   } catch (error) {
     yield put(UserActions.userFailure('Algo deu errado, tente novamente'));

@@ -90,6 +90,14 @@ export const Input = styled.input.attrs({
   color: #ccc;
 `;
 
+export const Success = styled.p`
+  color: #b061ff;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+`;
+
 export const Error = styled.p`
   color: #ff817e;
   margin-bottom: 20px;

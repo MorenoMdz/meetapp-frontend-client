@@ -17,14 +17,7 @@ const INITIAL_STATE = {
   email: '',
   password: '',
   password_confirmation: '',
-  preferences: [
-    { id: 1, title: 'Front-end' },
-    { id: 2, title: 'Back-end' },
-    { id: 3, title: 'Mobile' },
-    { id: 4, title: 'DevOps' },
-    { id: 5, title: 'Gestão' },
-    { id: 6, title: 'Marketing' },
-  ],
+  preferences: [],
 };
 
 export default function user(state = INITIAL_STATE, action) {
@@ -55,7 +48,7 @@ export default function user(state = INITIAL_STATE, action) {
         ...state,
         name: action.payload.data.name,
         email: action.payload.data.email,
-        preferences: [...action.payload.data.preferences],
+        preferences: action.payload.data.preferences,
         error: '',
         loading: false,
       };

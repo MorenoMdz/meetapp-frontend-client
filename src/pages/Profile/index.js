@@ -24,17 +24,26 @@ class Profile extends Component {
       { id: 5, name: 'Gestão' },
       { id: 6, name: 'Marketing' },
     ],
+    prefLoading: true,
     error: false,
     loading: false,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const { fetchRequest } = this.props;
+    this.setState({ prefLoading: true });
 
     fetchRequest();
 
-    const { userPreferences } = this.props;
-    console.log(userPreferences);
+    setTimeout(() => {
+      const { name, email, userPreferences } = this.props;
+      this.setState({
+        name,
+        email,
+        preferences: userPreferences,
+        prefLoading: false,
+      });
+    }, 1000);
   }
 
   handleSubmit = async (e) => {
@@ -65,13 +74,8 @@ class Profile extends Component {
   };
 
   render() {
-    const {
-      name, email, userPreferences, error, loading,
-    } = this.props;
-    const { preferences } = this.state;
-    // console.log('render', preferences.map(pref => pref.name));
-    console.log('props', userPreferences);
-    console.log('state', preferences);
+    const { error, loading } = this.props;
+    const { name, email, preferences } = this.state;
 
     return (
       <Fragment>
@@ -105,22 +109,23 @@ class Profile extends Component {
                 placeholder="Confirme sua senha secreta"
               />
               <h4>Preferências</h4>
-              {preferences.map(pref => (
-                <div className="checkbox" key={pref.name}>
-                  <input
-                    id={pref.name}
-                    type="checkbox"
-                    name="preference"
-                    value={pref.checked}
-                    checked={pref.checked}
-                    onChange={e => this.handlePrefChange(e, pref.name)}
-                  />
-                  <label htmlFor={pref.name}>
-                    <span />
-                    {pref.name}
-                  </label>
-                </div>
-              ))}
+              {(this.state.prefLoading && <p>Carregando...</p>)
+                || preferences.map(pref => (
+                  <div className="checkbox" key={pref.name}>
+                    <input
+                      id={pref.name}
+                      type="checkbox"
+                      name="preference"
+                      value={pref.checked}
+                      checked={pref.checked}
+                      onChange={e => this.handlePrefChange(e, pref.name)}
+                    />
+                    <label htmlFor={pref.name}>
+                      <span />
+                      {pref.name}
+                    </label>
+                  </div>
+                ))}
               <Button type="submit">{loading ? 'Carregando' : 'Salvar'}</Button>
             </Form>
           </Card>
@@ -133,6 +138,7 @@ class Profile extends Component {
 const mapStateToProps = state => ({
   name: state.user.name,
   email: state.user.email,
+  preferences: state.user.preferences,
   userPreferences: state.user.preferences,
   error: state.user.error,
   loading: state.user.loading,

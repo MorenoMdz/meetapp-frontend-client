@@ -1,117 +1,80 @@
 import React, { Component, Fragment } from 'react';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as SearchActions } from '../../store/ducks/search';
+
 import { Container } from './styles';
 import Navbar from '../../components/Navbar';
 import HorizontalList from '../../components/HorizontalList';
 
-class Login extends Component {
+class Dashboard extends Component {
   state = {
     title: '',
     description: '',
     file: '',
-    registeredMeetups: [
-      {
-        title: 'Meetup-One',
-        description: 'Description 1',
-        cover:
-          'https://images.wallpapersden.com/image/download/infinity-war-all-superheroes_58112_2560x1024.jpg',
-      },
-      {
-        title: 'Meetup-Two',
-        description: 'Description 2',
-        cover:
-          'https://images.wallpapersden.com/image/download/infinity-war-all-superheroes_58112_2560x1024.jpg',
-      },
-      {
-        title: 'Meetup-Three',
-        description: 'Description 3',
-        cover:
-          'https://images.wallpapersden.com/image/download/infinity-war-all-superheroes_58112_2560x1024.jpg',
-      },
-    ],
-    nextMeetups: [
-      {
-        title: 'Meetup-One',
-        description: 'Description 1',
-        cover:
-          'https://images.wallpapersden.com/image/download/infinity-war-all-superheroes_58112_2560x1024.jpg',
-      },
-      {
-        title: 'Meetup-Two',
-        description: 'Description 2',
-        cover:
-          'https://images.wallpapersden.com/image/download/infinity-war-all-superheroes_58112_2560x1024.jpg',
-      },
-      {
-        title: 'Meetup-Three',
-        description: 'Description 3',
-        cover:
-          'https://images.wallpapersden.com/image/download/infinity-war-all-superheroes_58112_2560x1024.jpg',
-      },
-    ],
-    recomendedMeetups: [
-      {
-        title: 'Meetup-One',
-        description: 'Description 1',
-        cover:
-          'https://images.wallpapersden.com/image/download/infinity-war-all-superheroes_58112_2560x1024.jpg',
-      },
-      {
-        title: 'Meetup-Two',
-        description: 'Description 2',
-        cover:
-          'https://images.wallpapersden.com/image/download/infinity-war-all-superheroes_58112_2560x1024.jpg',
-      },
-      {
-        title: 'Meetup-Three',
-        description: 'Description 3',
-        cover:
-          'https://images.wallpapersden.com/image/download/infinity-war-all-superheroes_58112_2560x1024.jpg',
-      },
-    ],
+    registeredMeetups: [],
+    nextMeetups: [],
+    recomendedMeetups: [],
     error: false,
     loading: false,
   };
 
-  handleSubmit = async (e) => {
-    e.preventDefault();
+  componentDidMount() {
+    const { fetchSoonRequest } = this.props;
+    fetchSoonRequest();
+  }
 
-    console.log(this.state);
-
-    // TODO POST to server to login
-    this.setState({
-      email: '',
-      password: '',
-      file: '',
-      loading: true,
-    });
-  };
+  handleSubmit = async (e) => {};
 
   render() {
     const {
-      registeredMeetups, nextMeetups, recomendedMeetups, error,
-    } = this.state;
+      meetupsRegistered, meetupsRegisteredSoon, meetupsRecommendedSoon, error,
+    } = this.props;
+    console.log('meetupsRecommendedSoon', meetupsRecommendedSoon);
 
     return (
       <Fragment>
         <Navbar />
         <Container>
           <div>
-            <h4>Suas Inscrições</h4>
-            <HorizontalList meetups={registeredMeetups} error={error} />
+            <h4>Suas Inscrições para os próximos dias</h4>
+            <HorizontalList meetups={meetupsRegisteredSoon} error={error} />
           </div>
           <div>
             <h4>Próximos Meetups</h4>
-            <HorizontalList meetups={nextMeetups} error={error} />
-            <div />
-            <h4>Recomendados</h4>
-            <HorizontalList meetups={recomendedMeetups} error={error} />
+            {/* <HorizontalList meetups={nextMeetups} error={error} /> */}
           </div>
-          {/* <Card /> */}
+          <div>
+            <h4>Recomendados</h4>
+            {meetupsRecommendedSoon ? (
+              <HorizontalList meetups={meetupsRecommendedSoon} error={error} />
+            ) : (
+              <p>Nenhuma recomendação encontrada!</p>
+            )}
+          </div>
+          <div>
+            <h4>Todas Suas Inscrições</h4>
+            <HorizontalList meetups={meetupsRegistered} error={error} />
+          </div>
         </Container>
       </Fragment>
     );
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  meetupsRegistered: state.search.meetupsRegistered,
+  meetupsRegisteredSoon: state.search.meetupsRegisteredSoon,
+  meetupsRecommendedSoon: state.search.meetupsRecommendedSoon,
+  flash: state.search.flash,
+  error: state.search.error,
+  loading: state.search.loading,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators(SearchActions, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Dashboard);

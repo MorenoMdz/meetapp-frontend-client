@@ -4,14 +4,16 @@ import { Container, MeetupCard } from './styles';
 
 const HorizontalList = ({ meetups, loading, error }) => (
   <Container>
-    {error && <div>TODO error</div>}
+    {error && <div>{error}</div>}
     {meetups.map(meetup => (
       <MeetupCard className="checkbox" key={meetup.title}>
-        <img src={meetup.cover} alt="Meetup cover" />
+        <img src={meetup.cover_url} alt="Capa do meetup" />
         <div id="title-card">
           <div id="title-text">
             <h4>{meetup.title}</h4>
-            <small>120 membros</small>
+            <small>
+              {meetup.total_members === 1 ? '1 membro' : `${meetup.total_members} membros`}
+            </small>
           </div>
           <button type="button">></button>
         </div>

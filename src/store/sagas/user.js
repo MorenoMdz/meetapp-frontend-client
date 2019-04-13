@@ -11,7 +11,7 @@ export function* userUpdate(action) {
     email,
     password,
     password_confirmation,
-    // history,
+    history,
     preferences,
   } = action.payload.data;
 
@@ -38,7 +38,7 @@ export function* userUpdate(action) {
     const data = { ...response.data, flash: 'Atualizado com sucesso!' };
 
     yield put(UserActions.userSuccess(data));
-    // history.push('/dashboard');
+    history.push('/dashboard');
   } catch (error) {
     yield put(UserActions.userFailure('Algo deu errado, tente novamente'));
   }

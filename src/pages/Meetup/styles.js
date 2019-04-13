@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  min-height: 600px;
-  max-height: 100vh;
-  max-width: 100vw;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  h4 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+  }
 `;
 
 export const Card = styled.div`

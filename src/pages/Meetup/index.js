@@ -1,43 +1,41 @@
 import React, { Component, Fragment } from 'react';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as MeetupActions } from '../../store/ducks/meetup';
+
 import {
   Card, Container, Description, Error,
 } from './styles';
 import Button from '../../components/Button';
 import Navbar from '../../components/Navbar';
 
-class Login extends Component {
+class Meetup extends Component {
   state = {
-    title: 'Meetup One',
-    cover:
-      'https://boygeniusreport.files.wordpress.com/2018/04/avengers-infinity-war3.jpg?quality=98&strip=all&w=1200',
-    description:
-      'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. ',
-    preferences: [
-      { title: 'Front-end' },
-      { title: 'Back-end', checked: true },
-      { title: 'Mobile' },
-      { title: 'DevOps' },
-      { title: 'Gestão' },
-      { title: 'Marketing' },
-    ],
-    error: false,
-    loading: false,
+    // title: 1,
+    // cover: 1,
+    // description: 1,
+    // preferences: [],
+    // error: false,
+    // loading: false,
   };
+
+  componentDidMount() {
+    const { fetchRequest } = this.props;
+    const id = this.props.match.params;
+    fetchRequest(id);
+  }
 
   handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(this.state);
-
-    // TODO POST to server to login
-    this.setState({ email: '', password: '', loading: true });
+    // TODO POST to server to register to the meetup
   };
 
   render() {
     const {
-      title, cover, description, error, loading,
-    } = this.state;
+      title, description, cover, event_date, address, error, loading,
+    } = this.props;
 
     return (
       <Fragment>
@@ -46,7 +44,7 @@ class Login extends Component {
           <Card>
             <img src={cover} alt="cover" />
             <Description>
-              <h2>{title}</h2>
+              <h2 onClick={this.handleSubmit}>{title}</h2>
               <small>120 membros</small>
               {' '}
               {/* TODO */}
@@ -54,7 +52,13 @@ class Login extends Component {
               <small>Realizado em:</small>
               {' '}
               {/* TODO */}
-              <span>Nulla consequat massa quis enim.</span>
+              <span>{event_date}</span>
+              <h4>Endereço</h4>
+              <p>{address.street}</p>
+              <p>{address.number}</p>
+              <p>{address.district}</p>
+              <p>{address.city}</p>
+              <p>{address.state}</p>
               {error && <Error>TODO error</Error>}
               <Button type="submit">{loading ? 'Carregando' : 'Inscreva-se'}</Button>
             </Description>
@@ -65,4 +69,23 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  title: state.meetup.title,
+  description: state.meetup.description,
+  preferences: state.meetup.preferences,
+  address: {
+    ...state.meetup.address,
+  },
+  cover: state.meetup.cover_url,
+  event_date: state.meetup.event_date,
+  flash: state.meetup.flash,
+  error: state.meetup.error,
+  loading: state.meetup.loading,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators(MeetupActions, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Meetup);

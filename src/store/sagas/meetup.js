@@ -10,7 +10,6 @@ export function* newMeetup(action) {
     description,
     cover_url,
     event_date,
-    history,
     preferences,
     street,
     number,
@@ -44,7 +43,7 @@ export function* newMeetup(action) {
     });
 
     const data = { ...response.data, flash: 'Novo meetup salvo com sucesso!' };
-    const meetup_id = response.data.id;
+    // const meetup_id = response.data.id;
 
     yield put(MeetupActions.newMeetupSuccess(data));
     // history.push(`/meetup/${meetup_id}`);
@@ -55,34 +54,17 @@ export function* newMeetup(action) {
 }
 
 export function* fetchMeetup(action) {
-  console.log('fetch Meetup called from saga!');
-  // try {
-  //   const id = localStorage.getItem('@meetapp:user_id');
-  //   const response = yield call(api.get, `users/${id}`);
-  //   const userPreferences = response.data.preferences;
-  //   // console.log('from saga:', userPreferences);
-
-  //   const preferences = [
-  //     { id: 1, name: 'Front-end', checked: false },
-  //     { id: 2, name: 'Back-end', checked: false },
-  //     { id: 3, name: 'Mobile', checked: false },
-  //     { id: 4, name: 'DevOps', checked: false },
-  //     { id: 5, name: 'Gestão', checked: false },
-  //     { id: 6, name: 'Marketing', checked: false },
-  //   ];
-
-  //   preferences.forEach(pref => userPreferences.forEach((userPref) => {
-  //     if (pref.id === userPref.id) {
-  //       pref.checked = true;
-  //     }
-  //   }));
-
-  //   // TODO flash msg user update in!
-
-  //   const data = { ...response.data, preferences };
-
-  //   yield put(UserActions.fetchSuccess(data));
-  // } catch (error) {
-  //   yield put(UserActions.fetchFailure('Algo deu errado, tente novamente'));
-  // }
+  const { id } = action.payload.data;
+  try {
+    // const id = localStorage.getItem('@meetapp:user_id');
+    const response = yield call(api.get, `meetups/${id}`);
+    // const userPreferences = response.data.preferences;
+    // console.log('from saga:', response.data);
+    const address = response.data.address[0];
+    console.log('from saga:', address);
+    const data = { ...response.data, address };
+    yield put(MeetupActions.fetchSuccess(data));
+  } catch (error) {
+    yield put(MeetupActions.fetchFailure('Algo deu errado, tente novamente'));
+  }
 }

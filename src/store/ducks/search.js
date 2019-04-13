@@ -1,27 +1,18 @@
 /* Action Types */
 export const Types = {
-  NEW_REQUEST: 'meetup/NEW_MEETUP_REQUEST',
-  NEW_SUCCESS: 'meetup/NEW_MEETUP_SUCCESS',
-  NEW_FAILURE: 'meetup/NEW_MEETUP_FAILURE',
-  FETCH_REQUEST: 'meetup/FETCH_REQUEST',
-  FETCH_SUCCESS: 'meetup/FETCH_SUCCESS',
-  FETCH_FAILURE: 'meetup/FETCH_FAILURE',
+  SOON_REQUEST: 'search/MEETUPS_SOON_REQUEST',
+  SOON_SUCCESS: 'search/MEETUPS_SOON_SUCCESS',
+  SOON_FAILURE: 'search/MEETUPS_SOON_FAILURE',
+  FETCH_REQUEST: 'search/FETCH_REQUEST',
+  FETCH_SUCCESS: 'search/FETCH_SUCCESS',
+  FETCH_FAILURE: 'search/FETCH_FAILURE',
 };
 
 /* Reducer */
 const INITIAL_STATE = {
-  id: '',
-  title: '',
-  description: '',
-  cover: '',
-  preferences: [
-    { id: 1, name: 'Front-end' },
-    { id: 2, name: 'Back-end' },
-    { id: 3, name: 'Mobile' },
-    { id: 4, name: 'DevOps' },
-    { id: 5, name: 'Gestão' },
-    { id: 6, name: 'Marketing' },
-  ],
+  meetupsRegistered: [],
+  meetupsRegisteredSoon: [],
+  meetupsRecommendedSoon: [],
   flash: '',
   loading: false,
   error: '',
@@ -30,19 +21,19 @@ const INITIAL_STATE = {
 export default function meetup(state = INITIAL_STATE, action) {
   switch (action.type) {
     // New meetup
-    case Types.NEW_REQUEST:
+    case Types.SOON_REQUEST:
       return { ...state, loading: true };
-    case Types.NEW_SUCCESS:
+    case Types.SOON_SUCCESS:
       return {
         ...state,
-        title: action.payload.data.title,
-        description: action.payload.data.description,
-        cover: action.payload.data.cover,
+        meetupsRegistered: action.payload.data.meetupsRegistered.data,
+        meetupsRegisteredSoon: action.payload.data.meetupsRegisteredSoon.data,
+        meetupsRecommendedSoon: action.payload.data.meetupsRecommendedSoon.data,
         error: '',
         flash: action.payload.data.flash,
         loading: false,
       };
-    case Types.NEW_FAILURE:
+    case Types.SOON_FAILURE:
       return {
         ...state,
         error: action.payload.error,
@@ -55,11 +46,7 @@ export default function meetup(state = INITIAL_STATE, action) {
     case Types.FETCH_SUCCESS:
       return {
         ...state,
-        title: action.payload.data.title,
-        description: action.payload.data.description,
-        preferences: action.payload.data.preferences,
-        address: action.payload.data.address,
-        cover_url: action.payload.data.cover_url,
+        meetupsSoon: [...action.payload.data],
         event_date: action.payload.data.event_date,
         flash: action.payload.data.flash,
         error: '',
@@ -79,18 +66,18 @@ export default function meetup(state = INITIAL_STATE, action) {
 
 /* Action Creators */
 export const Creators = {
-  newMeetupRequest: data => ({
-    type: Types.NEW_REQUEST,
+  fetchSoonRequest: data => ({
+    type: Types.SOON_REQUEST,
     payload: { data },
   }),
 
-  newMeetupSuccess: data => ({
-    type: Types.NEW_SUCCESS,
+  fetchSoonSuccess: data => ({
+    type: Types.SOON_SUCCESS,
     payload: { data },
   }),
 
-  newMeetupFailure: error => ({
-    type: Types.NEW_FAILURE,
+  fetchSoonFailure: error => ({
+    type: Types.SOON_FAILURE,
     payload: { error },
   }),
 

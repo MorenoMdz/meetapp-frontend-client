@@ -37,19 +37,18 @@ class Meetup extends Component {
             <Description>
               <h2 onClick={this.handleSubmit}>{title}</h2>
               <small>120 membros</small>
-              {' '}
-              {/* TODO */}
+              <br />
+              <h4>Descrição do evento:</h4>
               <p>{description}</p>
               <small>Realizado em:</small>
-              {' '}
-              {/* TODO */}
               <span>{event_date}</span>
-              <h4>Endereço</h4>
-              <p>{address.street}</p>
-              <p>{address.number}</p>
-              <p>{address.district}</p>
-              <p>{address.city}</p>
-              <p>{address.state}</p>
+              <br />
+              <h4>Endereço:</h4>
+              <small>{address.street}</small>
+              <small>{address.number}</small>
+              <small>{address.district}</small>
+              <small>{address.city}</small>
+              <small>{address.state}</small>
               {error && <Error>TODO error</Error>}
               <Button type="submit">{loading ? 'Carregando' : 'Inscreva-se'}</Button>
             </Description>

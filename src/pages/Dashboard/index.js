@@ -8,23 +8,12 @@ import { Container } from './styles';
 import HorizontalList from '../../components/HorizontalList';
 
 class Dashboard extends Component {
-  state = {
-    title: '',
-    description: '',
-    file: '',
-    registeredMeetups: [],
-    nextMeetups: [],
-    recomendedMeetups: [],
-    error: false,
-    loading: false,
-  };
-
   componentDidMount() {
     const { fetchSoonRequest } = this.props;
     fetchSoonRequest();
   }
 
-  handleSubmit = async (e) => {};
+  handleEmpy = (list = []) => list.length > 0;
 
   render() {
     const {
@@ -33,38 +22,43 @@ class Dashboard extends Component {
       meetupsRecommendedSoon,
       meetupsNotRegSoon,
       error,
+      loading,
     } = this.props;
-    console.log('meetupsNotRegSoon from comp', meetupsNotRegSoon);
+    // console.log('meetupsRegistered from comp', meetupsRegistered.data);
 
     return (
       <Fragment>
         <Container>
           <div>
             <h4>Suas Inscrições para os próximos dias</h4>
-            {meetupsRegisteredSoon.data && (
-              <HorizontalList meetups={meetupsRegisteredSoon} error={error} />
+            {this.handleEmpy(meetupsRegisteredSoon.data) ? (
+              <HorizontalList meetups={meetupsRegisteredSoon} error={error} loading={loading} />
+            ) : (
+              <p>Você tem nenhum evento acontecendo em breve.</p>
             )}
           </div>
           <div>
             <h4>Próximos Meetups</h4>
-            {meetupsRecommendedSoon.data ? (
-              <HorizontalList meetups={meetupsRecommendedSoon} error={error} />
+
+            {this.handleEmpy(meetupsNotRegSoon.data) ? (
+              <HorizontalList meetups={meetupsNotRegSoon} error={error} loading={loading} />
             ) : (
               <p>Sem recomendações no momento.</p>
             )}
           </div>
           <div>
             <h4>Recomendados</h4>
-            {meetupsRecommendedSoon.data ? (
-              <HorizontalList meetups={meetupsRecommendedSoon} error={error} />
+            {this.handleEmpy(meetupsRecommendedSoon.data) ? (
+              <HorizontalList meetups={meetupsRecommendedSoon} error={error} loading={loading} />
             ) : (
               <p>Sem recomendações no momento.</p>
             )}
           </div>
           <div>
             <h4>Todas Suas Inscrições</h4>
-            {meetupsRegistered.data ? (
-              <HorizontalList meetups={meetupsRegistered} error={error} />
+
+            {this.handleEmpy(meetupsRegistered.data) ? (
+              <HorizontalList meetups={meetupsRegistered} error={error} loading={loading} />
             ) : (
               <p>Você não está inscrito em nenhum meetup.</p>
             )}
@@ -80,7 +74,6 @@ const mapStateToProps = state => ({
   meetupsRegisteredSoon: state.search.meetupsRegisteredSoon,
   meetupsNotRegSoon: state.search.meetupsNotRegSoon,
   meetupsRecommendedSoon: state.search.meetupsRecommendedSoon,
-  flash: state.search.flash,
   error: state.search.error,
   loading: state.search.loading,
 });

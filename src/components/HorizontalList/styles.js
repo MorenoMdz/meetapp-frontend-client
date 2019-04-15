@@ -1,8 +1,10 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
+  max-width: 900px;
 
   background: transparent;
 `;
@@ -42,16 +44,16 @@ export const MeetupCard = styled.div`
         margin: -10px 0 15px 0;
       }
     }
-
-    button {
-      background: #e5556e;
-      border-radius: 50%;
-      border: 0;
-      color: white;
-      width: 50px;
-      height: 50px;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
   }
+`;
+
+export const NavLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e5556e;
+  border: 0;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
 `;

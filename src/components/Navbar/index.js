@@ -50,6 +50,10 @@ class Navbar extends Component {
           <img src={siteLogo} alt="Logo" />
           <NavLink to="/dashboard">Inicio</NavLink>
           <NavLink to="/newmeetup">Novo Meetup</NavLink>
+
+          {/* DO THIS NOW
+            perhaps have a search page yes, then have it show only the results by title
+          */}
           <button>Buscar*TODO* toggle</button>
         </div>
 

@@ -12,7 +12,7 @@ export function* fetchMeetupsSoon(action) {
     const meetupsNotRegSoon = yield call(api.get, 'meetups/not-registered');
     const meetupsRecommendedSoon = yield call(api.get, 'meetups/recommended-soon');
 
-    console.log('meetupsNotRegSoon from saga:', meetupsNotRegSoon.data);
+    console.log('meetupsRegistered from saga:', meetupsRegistered.data);
 
     const data = {
       meetupsRegistered,

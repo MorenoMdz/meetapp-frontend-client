@@ -18,11 +18,9 @@ export function* loginUser(action) {
       email,
       password,
     });
-
     yield put(LoginActions.loginSuccess(response.data));
     login(response.data.token);
     localStorage.setItem('@meetapp:user_id', response.data.user_id);
-
     history.push('/dashboard');
   } catch (error) {
     yield put(LoginActions.loginFailure('Usuário ou Senha inválidos'));
@@ -31,13 +29,10 @@ export function* loginUser(action) {
 
 export function* logoutUser() {
   try {
-    console.log('logout from saga');
     logout();
     localStorage.removeItem('@meetapp:user_id');
-    yield put(LoginActions.logoutSuccess());
-    history.push('/dashboard'); // this fails not sure why
+    yield put(LoginActions.logoutSuccess(history.push('/signin')));
   } catch (error) {
-    history.push('/dashboard');
     yield put(LoginActions.logoutFailure());
   }
 }

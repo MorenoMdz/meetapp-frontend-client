@@ -6,31 +6,30 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  h4 {
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-  }
 `;
 
 export const Card = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  width: 380px;
+  align-items: flex-start;
+  max-width: 900px;
+  margin-top: 100px;
 
   img {
-    max-width: 900px;
-    max-height: 400px;
-    margin: 20px;
+    max-width: 700px;
+    max-height: 600px;
+    margin-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e5556e;
+    border-bottom-right-radius: 5px;
 
     @media screen and (max-width: 768px) {
       width: 400px;
     }
 
     @media screen and (max-height: 900px) {
-      width: 400px;
+      width: 600px;
     }
 
     @media screen and (max-height: 600px) {
@@ -39,7 +38,10 @@ export const Card = styled.div`
   }
 
   p {
+    padding: 5px;
     margin-bottom: 20px;
+    border-bottom: 2px solid #e5556e;
+    border-bottom-right-radius: 5px;
   }
 
   button {
@@ -47,11 +49,11 @@ export const Card = styled.div`
     margin: 30px 0;
   }
 
-  a {
+  /* a {
     color: #6a666f;
     font-size: 1rem;
     text-decoration: none;
-  }
+  } */
 `;
 
 export const Description = styled.div`
@@ -59,15 +61,15 @@ export const Description = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  width: 380px;
+  max-width: 600px;
 
   small {
     color: #999;
   }
 
-  p {
+  /* p {
     margin: 30px 0;
-  }
+  } */
 `;
 
 export const Error = styled.p`

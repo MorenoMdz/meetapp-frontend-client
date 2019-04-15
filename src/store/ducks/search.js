@@ -13,6 +13,7 @@ const INITIAL_STATE = {
   meetupsRegistered: {},
   meetupsRegisteredSoon: {},
   meetupsRecommendedSoon: {},
+  meetupsNotRegSoon: {},
   flash: '',
   loading: false,
   error: '',

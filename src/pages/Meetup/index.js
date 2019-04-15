@@ -8,17 +8,9 @@ import {
   Card, Container, Description, Error,
 } from './styles';
 import Button from '../../components/Button';
-import Navbar from '../../components/Navbar';
 
 class Meetup extends Component {
-  state = {
-    // title: 1,
-    // cover: 1,
-    // description: 1,
-    // preferences: [],
-    // error: false,
-    // loading: false,
-  };
+  state = {};
 
   componentDidMount() {
     const { fetchRequest } = this.props;
@@ -39,7 +31,6 @@ class Meetup extends Component {
 
     return (
       <Fragment>
-        <Navbar />
         <Container>
           <Card>
             <img src={cover} alt="cover" />

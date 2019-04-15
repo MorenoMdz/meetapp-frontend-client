@@ -1,6 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 
 import api from '../../services/api';
+import history from '../../routes/history';
 
 import { Creators as MeetupActions } from '../ducks/meetup';
 
@@ -43,9 +44,12 @@ export function* newMeetup(action) {
     });
 
     const data = { ...response.data, flash: 'Novo meetup salvo com sucesso!' };
-    // const meetup_id = response.data.id;
+    const meetup_id = response.data.id;
+
+    console.tron.log('from saga: ', meetup_id);
 
     yield put(MeetupActions.newMeetupSuccess(data));
+    history.push('/dashboard');
     // history.push(`/meetup/${meetup_id}`);
   } catch (error) {
     console.error(error);

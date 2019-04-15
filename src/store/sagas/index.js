@@ -8,7 +8,7 @@ import { Types as MeetupTypes } from '../ducks/meetup';
 import { Types as SearchTypes } from '../ducks/search';
 
 // SAGA
-import { loginUser } from './login';
+import { loginUser, logoutUser } from './login';
 import { signupUser } from './signup';
 import { userUpdate, fetchUser } from './user';
 import { newMeetup, fetchMeetup } from './meetup';
@@ -17,6 +17,7 @@ import { fetchMeetupsSoon } from './search';
 export default function* rootSaga() {
   yield all([
     takeLatest(LoginTypes.REQUEST, loginUser),
+    takeLatest(LoginTypes.LOGOUT_REQUEST, logoutUser),
     takeLatest(SignupTypes.REQUEST, signupUser),
     takeLatest(UserTypes.REQUEST, userUpdate),
     takeLatest(UserTypes.FETCH_REQUEST, fetchUser),

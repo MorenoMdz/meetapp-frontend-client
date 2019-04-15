@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Creators as LoginActions } from '../../store/ducks/login';
 
 import {
-  Card, Container, Logo, Form, Input, Error,
+  Card, Container, Logo, Form, Input, Error, Signup,
 } from './styles';
 import Button from '../../components/Button';
 import logo from '../../assets/logo.svg';
@@ -51,7 +51,7 @@ class Login extends Component {
             />
             <Button type="submit">{loading ? 'carregando' : 'Entrar'}</Button>
           </Form>
-          <a href="/signup">Criar conta grátis</a>
+          <Signup to="/signup">Criar conta grátis</Signup>
         </Card>
       </Container>
     );

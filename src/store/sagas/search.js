@@ -9,15 +9,17 @@ export function* fetchMeetupsSoon(action) {
     // const user_id = localStorage.getItem('@meetapp:user_id');
     const meetupsRegistered = yield call(api.get, 'meetups/registered');
     const meetupsRegisteredSoon = yield call(api.get, 'meetups/registered-soon');
-    // const meetupsSoon = yield call(api.get, 'meetups/registered-soon');
+    const meetupsNotRegSoon = yield call(api.get, 'meetups/not-registered');
     const meetupsRecommendedSoon = yield call(api.get, 'meetups/recommended-soon');
 
-    // console.log('meetupsRegistered:', meetupsRegistered.data);
-    // console.log('RegisSoon:', meetupsRegisteredSoon.data);
-    // // console.log('Soon:', meetupsSoon.data);
-    console.log('meetupsRecommendedSoon:', meetupsRecommendedSoon.data);
+    console.log('meetupsNotRegSoon from saga:', meetupsNotRegSoon.data);
 
-    const data = { meetupsRegistered, meetupsRegisteredSoon, meetupsRecommendedSoon };
+    const data = {
+      meetupsRegistered,
+      meetupsRegisteredSoon,
+      meetupsRecommendedSoon,
+      meetupsNotRegSoon,
+    };
     yield put(SearchActions.fetchSoonSuccess(data));
   } catch (error) {
     yield put(SearchActions.fetchSoonFailure('Algo deu errado, tente novamente'));

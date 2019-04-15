@@ -10,9 +10,9 @@ export const Types = {
 
 /* Reducer */
 const INITIAL_STATE = {
-  meetupsRegistered: [],
-  meetupsRegisteredSoon: [],
-  meetupsRecommendedSoon: [],
+  meetupsRegistered: {},
+  meetupsRegisteredSoon: {},
+  meetupsRecommendedSoon: {},
   flash: '',
   loading: false,
   error: '',
@@ -28,6 +28,7 @@ export default function meetup(state = INITIAL_STATE, action) {
         ...state,
         meetupsRegistered: action.payload.data.meetupsRegistered.data,
         meetupsRegisteredSoon: action.payload.data.meetupsRegisteredSoon.data,
+        meetupsNotRegSoon: action.payload.data.meetupsNotRegSoon.data,
         meetupsRecommendedSoon: action.payload.data.meetupsRecommendedSoon.data,
         error: '',
         flash: action.payload.data.flash,

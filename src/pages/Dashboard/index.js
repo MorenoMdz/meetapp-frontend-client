@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { Creators as SearchActions } from '../../store/ducks/search';
 
 import { Container } from './styles';
-import Navbar from '../../components/Navbar';
 import HorizontalList from '../../components/HorizontalList';
 
 class Dashboard extends Component {
@@ -29,33 +28,46 @@ class Dashboard extends Component {
 
   render() {
     const {
-      meetupsRegistered, meetupsRegisteredSoon, meetupsRecommendedSoon, error,
+      meetupsRegistered,
+      meetupsRegisteredSoon,
+      meetupsRecommendedSoon,
+      meetupsNotRegSoon,
+      error,
     } = this.props;
-    console.log('meetupsRecommendedSoon', meetupsRecommendedSoon);
+    console.log('meetupsNotRegSoon from comp', meetupsNotRegSoon);
 
     return (
       <Fragment>
-        <Navbar />
         <Container>
           <div>
             <h4>Suas Inscrições para os próximos dias</h4>
-            <HorizontalList meetups={meetupsRegisteredSoon} error={error} />
+            {meetupsRegisteredSoon.data && (
+              <HorizontalList meetups={meetupsRegisteredSoon} error={error} />
+            )}
           </div>
           <div>
             <h4>Próximos Meetups</h4>
-            {/* <HorizontalList meetups={nextMeetups} error={error} /> */}
+            {meetupsRecommendedSoon.data ? (
+              <HorizontalList meetups={meetupsRecommendedSoon} error={error} />
+            ) : (
+              <p>Sem recomendações no momento.</p>
+            )}
           </div>
           <div>
             <h4>Recomendados</h4>
-            {meetupsRecommendedSoon ? (
+            {meetupsRecommendedSoon.data ? (
               <HorizontalList meetups={meetupsRecommendedSoon} error={error} />
             ) : (
-              <p>Nenhuma recomendação encontrada!</p>
+              <p>Sem recomendações no momento.</p>
             )}
           </div>
           <div>
             <h4>Todas Suas Inscrições</h4>
-            <HorizontalList meetups={meetupsRegistered} error={error} />
+            {meetupsRegistered.data ? (
+              <HorizontalList meetups={meetupsRegistered} error={error} />
+            ) : (
+              <p>Você não está inscrito em nenhum meetup.</p>
+            )}
           </div>
         </Container>
       </Fragment>
@@ -66,6 +78,7 @@ class Dashboard extends Component {
 const mapStateToProps = state => ({
   meetupsRegistered: state.search.meetupsRegistered,
   meetupsRegisteredSoon: state.search.meetupsRegisteredSoon,
+  meetupsNotRegSoon: state.search.meetupsNotRegSoon,
   meetupsRecommendedSoon: state.search.meetupsRecommendedSoon,
   flash: state.search.flash,
   error: state.search.error,

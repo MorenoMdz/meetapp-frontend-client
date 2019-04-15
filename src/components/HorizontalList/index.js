@@ -5,7 +5,7 @@ import { Container, MeetupCard } from './styles';
 const HorizontalList = ({ meetups, loading, error }) => (
   <Container>
     {error && <div>{error}</div>}
-    {meetups.map(meetup => (
+    {meetups.data.map(meetup => (
       <MeetupCard className="checkbox" key={meetup.title}>
         <img src={meetup.cover_url} alt="Capa do meetup" />
         <div id="title-card">

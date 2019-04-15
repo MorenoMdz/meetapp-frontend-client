@@ -1,8 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import { /* BrowserRouter, */ Switch, Route, Redirect } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 
-import {
-  BrowserRouter, Switch, Route, Redirect,
-} from 'react-router-dom';
+import { isAuthenticated } from '../services/auth';
+
+import history from './history';
 
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
@@ -11,9 +13,7 @@ import Dashboard from '../pages/Dashboard';
 import Profile from '../pages/Profile';
 import Meetup from '../pages/Meetup';
 import NewMeetup from '../pages/NewMeetup';
-import Search from '../pages/Search';
-
-import { isAuthenticated } from '../services/auth';
+import Navbar from '../components/Navbar';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -28,21 +28,20 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 );
 
 const Routes = () => (
-  <BrowserRouter>
-    <Fragment>
-      <Switch>
-        <Route exact path="/" component={SignIn} />
-        <Route path="/signup" component={SignUp} />
-        <PrivateRoute path="/dashboard" component={Dashboard} />
-        <PrivateRoute path="/preferences" component={Preferences} />
-        <PrivateRoute path="/profile" component={Profile} />
-        <PrivateRoute path="/meetup/:id" component={Meetup} />
-        <PrivateRoute path="/newmeetup" component={NewMeetup} />
-        <PrivateRoute path="/search" component={Search} />
-        <Route path="*" component={() => <h1>Page not found</h1>} />
-      </Switch>
-    </Fragment>
-  </BrowserRouter>
+  <ConnectedRouter history={history}>
+    <Route exact path="/" component={SignIn} />
+    <Route path="/signin" component={SignIn} />
+    <Route path="/signup" component={SignUp} />
+    <Navbar />
+    <Switch>
+      <PrivateRoute path="/dashboard" component={Dashboard} />
+      <PrivateRoute path="/preferences" component={Preferences} />
+      <PrivateRoute path="/profile" component={Profile} />
+      <PrivateRoute path="/meetup/:id" component={Meetup} />
+      <PrivateRoute path="/newmeetup" component={NewMeetup} />
+      <Route path="*" component={() => <h1>Page not found</h1>} />
+    </Switch>
+  </ConnectedRouter>
 );
 
 export default Routes;

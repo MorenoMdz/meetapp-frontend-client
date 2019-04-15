@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { Link } from 'react-router-dom';
+
 export const Container = styled.div`
   height: 100vh;
   width: 100vw;
@@ -53,6 +55,12 @@ export const Input = styled.input.attrs({
   width: 100%;
   font-size: 1.2rem;
   color: #fff;
+`;
+
+export const Login = styled(Link)`
+  margin-top: 20px;
+  display: flex;
+  color: #333;
 `;
 
 export const Error = styled.p`

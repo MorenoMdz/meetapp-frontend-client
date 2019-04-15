@@ -25,7 +25,6 @@ import {
 import Button from '../../components/Button';
 import Upload from '../../components/Upload';
 import FileList from '../../components/FileList';
-import Navbar from '../../components/Navbar';
 
 class Meetup extends Component {
   state = {
@@ -170,7 +169,6 @@ class Meetup extends Component {
 
     return (
       <Fragment>
-        <Navbar />
         <Container>
           <Card>
             {(error && <Error>{error}</Error>) || (flash && <Success>{flash}</Success>)}
@@ -205,7 +203,7 @@ class Meetup extends Component {
               />
               <label>Número</label>
               <Input
-                type="text"
+                type="number"
                 onChange={e => this.setState({ number: e.target.value })}
                 placeholder="Número"
               />

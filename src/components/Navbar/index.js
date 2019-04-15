@@ -1,15 +1,105 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-import logo from '../../assets/logo-white.svg';
-import { Container } from './styles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as LoginActions } from '../../store/ducks/login';
+import { Creators as UserActions } from '../../store/ducks/user';
 
-const Navbar = () => (
-  <Container>
-    <img src={logo} alt="Logo" />
-    <a href="/dashboard">Inicio</a>
-    <a href="/search">Buscar</a>
-    <a href="/newmeetup">Novo meet</a>
-  </Container>
-);
+import siteLogo from '../../assets/logo-white.svg';
+import profileLogo from '../../assets/user.svg';
+import activeProfileLogo from '../../assets/userFull.svg';
+import {
+  Container, ToggleBtn, NavLink, NavMenu, MenuLink,
+} from './styles';
 
-export default Navbar;
+class Navbar extends Component {
+  state = { menuActive: false, prefLoading: false, name: '' };
+
+  componentDidMount() {
+    this.setState({ menuActive: false, prefLoading: true });
+    this.loadUser();
+  }
+
+  toggleMenu = () => {
+    const { menuActive } = this.state;
+    this.setState({ menuActive: !menuActive });
+    this.loadUser();
+  };
+
+  hideMenu = () => {
+    this.loadUser();
+    this.setState({ menuActive: false });
+  };
+
+  loadUser = () => {
+    const { fetchRequest, name } = this.props;
+    fetchRequest();
+    this.setState({
+      name,
+      prefLoading: false,
+    });
+  };
+
+  render() {
+    const { menuActive, name, prefLoading } = this.state;
+    const { logoutRequest } = this.props;
+
+    return (
+      <Container>
+        <div onClick={this.hideMenu}>
+          <img src={siteLogo} alt="Logo" />
+          <NavLink to="/dashboard">Inicio</NavLink>
+          <NavLink to="/newmeetup">Novo Meetup</NavLink>
+          <button>Buscar*TODO* toggle</button>
+        </div>
+
+        <div>
+          <ToggleBtn onClick={this.toggleMenu}>
+            {!menuActive ? (
+              <img src={profileLogo} alt="Logo" />
+            ) : (
+              <img src={activeProfileLogo} alt="Logo" />
+            )}
+          </ToggleBtn>
+          {menuActive && (
+            <NavMenu onClick={this.hideMenu}>
+              {!prefLoading ? (
+                <strong>
+                  <MenuLink to="/profile">{`Olá, ${name.split(' ')[0]}`}</MenuLink>
+                </strong>
+              ) : (
+                <strong>...</strong>
+              )}
+
+              <div className="row">
+                <MenuLink to="/profile">Meu Perfil</MenuLink>
+              </div>
+              <div className="row">
+                <MenuLink to="/about">Sobre Nós</MenuLink>
+              </div>
+              <br />
+              <div className="row">
+                <li className="logout" onClick={logoutRequest}>
+                  Sair
+                </li>
+              </div>
+            </NavMenu>
+          )}
+        </div>
+      </Container>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  name: state.user.name,
+  error: state.login.error,
+  loading: state.login.loading,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({ ...LoginActions, ...UserActions }, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Navbar);

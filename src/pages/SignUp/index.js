@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Creators as SignupActions } from '../../store/ducks/signup';
 
 import {
-  Card, Container, Logo, Form, Input, Error,
+  Card, Container, Logo, Form, Input, Error, Login,
 } from './styles';
 import Button from '../../components/Button';
 import logo from '../../assets/logo.svg';
@@ -59,16 +59,19 @@ class SignUp extends Component {
             />
             <label>Senha</label>
             <Input
+              type="password"
               onChange={e => this.setState({ password: e.target.value })}
               placeholder="Sua senha secreta"
             />
+            <label>Confirme sua Senha</label>
             <Input
+              type="password"
               onChange={e => this.setState({ password_confirmation: e.target.value })}
               placeholder="Confirme sua senha secreta"
             />
             <Button type="submit">{loading ? 'carregando' : 'Criar conta'}</Button>
           </Form>
-          <a href="/signin">Já tenho conta</a>
+          <Login to="/signin">Já tenho conta</Login>
         </Card>
       </Container>
     );

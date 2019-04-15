@@ -1,7 +1,8 @@
 import { call, put } from 'redux-saga/effects';
 
 import api from '../../services/api';
-import { login } from '../../services/auth';
+import { login, logout } from '../../services/auth';
+import history from '../../routes/history';
 
 import { Creators as LoginActions } from '../ducks/login';
 
@@ -25,5 +26,18 @@ export function* loginUser(action) {
     history.push('/dashboard');
   } catch (error) {
     yield put(LoginActions.loginFailure('Usuário ou Senha inválidos'));
+  }
+}
+
+export function* logoutUser() {
+  try {
+    console.log('logout from saga');
+    logout();
+    localStorage.removeItem('@meetapp:user_id');
+    yield put(LoginActions.logoutSuccess());
+    history.push('/dashboard'); // this fails not sure why
+  } catch (error) {
+    history.push('/dashboard');
+    yield put(LoginActions.logoutFailure());
   }
 }

@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 92vh;
-  width: 100vw;
+  height: 100%;
   display: flex;
-  margin-top: 100px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -16,7 +14,7 @@ export const Card = styled.div`
   justify-content: center;
   align-items: flex-start;
   width: 380px;
-  max-height: 500px;
+  margin-top: 100px;
 
   p {
     margin-bottom: 20px;

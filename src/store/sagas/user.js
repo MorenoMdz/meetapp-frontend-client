@@ -16,7 +16,6 @@ export function* userUpdate(action) {
   } = action.payload.data;
 
   const newPreferences = preferences.filter(pref => pref.checked).map(pref => pref.id);
-  // console.log(newPreferences);
 
   if (!name || !email || !password || !password_confirmation) {
     return yield put(

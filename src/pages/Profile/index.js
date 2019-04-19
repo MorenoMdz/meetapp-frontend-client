@@ -11,33 +11,39 @@ import Button from '../../components/Button';
 import Spinner from '../../components/Spinner';
 
 class Profile extends Component {
+  // 1) Inicio o loading como true
   state = {
-    prefLoading: true,
+    name: '',
+    email: '',
+    preferences: [],
+    loading: true,
     flash: '',
     error: '',
-    loading: false,
   };
 
   componentDidMount() {
+    // 2) Busco os dados do user do store pela ação do saga
     const { fetchRequest } = this.props;
-    this.setState({ prefLoading: true });
-
     fetchRequest();
+    this.loadUser();
+  }
 
+  loadUser = () => {
+    // 3) Essa ação tem um tempo de processo por isso precisei dar um delay de 1s pra evitar o erro no montar do componente, esse 1s acaba sendo um UX decente
     setTimeout(() => {
       const { name, email, userPreferences } = this.props;
+      // 4) Aqui fica a dúvida, usei os dados do props "copiando" pro state pra usar no display dos inputs/checkbox e poder manipular ja que props é readonly, seria essa a melhor opção?
       this.setState({
         name,
         email,
         preferences: userPreferences,
-        prefLoading: false,
+        loading: false,
       });
     }, 1000);
-  }
+  };
 
   handleSubmit = async (e) => {
     e.preventDefault();
-
     const { userRequest, history } = this.props;
     const {
       name, email, password, password_confirmation, preferences,
@@ -63,9 +69,9 @@ class Profile extends Component {
   };
 
   render() {
-    const { flash, error, loading } = this.props;
+    const { flash, error } = this.props;
     const {
-      name, email, preferences, prefLoading,
+      name, email, preferences, loading,
     } = this.state;
 
     return (
@@ -73,9 +79,8 @@ class Profile extends Component {
         <Container>
           <Card>
             {(error && <Error>{error}</Error>) || (flash && <Success>{flash}</Success>)}
-            {prefLoading ? (
-              // <p>Carregando...</p>
-              <Spinner loading={prefLoading} />
+            {loading ? (
+              <Spinner loading={loading} />
             ) : (
               <Form onSubmit={this.handleSubmit} name="login">
                 <label htmlFor="name">Nome</label>
@@ -104,7 +109,7 @@ class Profile extends Component {
                 />
 
                 <h4>Preferências</h4>
-                {(this.state.prefLoading && <p>Carregando...</p>)
+                {(this.state.loading && <p>Carregando...</p>)
                   || preferences.map(pref => (
                     <div className="checkbox" key={pref.name}>
                       <input
@@ -113,7 +118,7 @@ class Profile extends Component {
                         name="preference"
                         value={pref.checked}
                         checked={pref.checked}
-                        onClick={e => this.handlePrefChange(e, pref.name)}
+                        onChange={e => this.handlePrefChange(e, pref.name)}
                       />
                       <label htmlFor={pref.name}>
                         <span />
@@ -138,8 +143,6 @@ const mapStateToProps = state => ({
   userPreferences: state.user.preferences,
   flash: state.user.flash,
   error: state.user.error,
-  loading: state.user.loading,
-  isLogged: state.user.isLogged,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(UserActions, dispatch);

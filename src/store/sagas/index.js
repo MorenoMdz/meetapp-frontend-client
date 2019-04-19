@@ -12,7 +12,7 @@ import { loginUser, logoutUser } from './login';
 import { signupUser } from './signup';
 import { userUpdate, fetchUser } from './user';
 import { newMeetup, fetchMeetup } from './meetup';
-import { fetchMeetupsSoon } from './search';
+import { fetchManyMeetups } from './search';
 
 export default function* rootSaga() {
   yield all([
@@ -23,6 +23,6 @@ export default function* rootSaga() {
     takeLatest(UserTypes.FETCH_REQUEST, fetchUser),
     takeLatest(MeetupTypes.NEW_REQUEST, newMeetup),
     takeLatest(MeetupTypes.FETCH_REQUEST, fetchMeetup),
-    takeLatest(SearchTypes.SOON_REQUEST, fetchMeetupsSoon),
+    takeLatest(SearchTypes.MEETUPS_REQUEST, fetchManyMeetups),
   ]);
 }

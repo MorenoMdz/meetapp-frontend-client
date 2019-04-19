@@ -1,8 +1,8 @@
 /* Action Types */
 export const Types = {
-  SOON_REQUEST: 'search/MEETUPS_SOON_REQUEST',
-  SOON_SUCCESS: 'search/MEETUPS_SOON_SUCCESS',
-  SOON_FAILURE: 'search/MEETUPS_SOON_FAILURE',
+  MEETUPS_REQUEST: 'search/MEETUPS_REQUEST',
+  MEETUPS_SUCCESS: 'search/MEETUPS_SUCCESS',
+  MEETUPS_FAILURE: 'search/MEETUPS_FAILURE',
   FETCH_REQUEST: 'search/FETCH_REQUEST',
   FETCH_SUCCESS: 'search/FETCH_SUCCESS',
   FETCH_FAILURE: 'search/FETCH_FAILURE',
@@ -14,35 +14,38 @@ const INITIAL_STATE = {
   meetupsRegisteredSoon: {},
   meetupsRecommendedSoon: {},
   meetupsNotRegSoon: {},
+  meetupsByTitle: {},
   flash: '',
   loading: false,
   error: '',
 };
 
+// Achei extenso as declarações aqui, algo que possa ficar mais compacto o código dentro de cada case?
 export default function meetup(state = INITIAL_STATE, action) {
   switch (action.type) {
     // New meetup
-    case Types.SOON_REQUEST:
+    case Types.MEETUPS_REQUEST:
       return { ...state, loading: true };
-    case Types.SOON_SUCCESS:
+    case Types.MEETUPS_SUCCESS:
       return {
         ...state,
         meetupsRegistered: action.payload.data.meetupsRegistered.data,
         meetupsRegisteredSoon: action.payload.data.meetupsRegisteredSoon.data,
         meetupsNotRegSoon: action.payload.data.meetupsNotRegSoon.data,
         meetupsRecommendedSoon: action.payload.data.meetupsRecommendedSoon.data,
+        meetupsByTitle: action.payload.data.meetupsByTitle.data,
         error: '',
         flash: action.payload.data.flash,
         loading: false,
       };
-    case Types.SOON_FAILURE:
+    case Types.MEETUPS_FAILURE:
       return {
         ...state,
         error: action.payload.error,
         flash: '',
         loading: false,
       };
-    // Fetch meetup
+    // Fetch single meetup
     case Types.FETCH_REQUEST:
       return { ...state, loading: true };
     case Types.FETCH_SUCCESS:
@@ -68,18 +71,18 @@ export default function meetup(state = INITIAL_STATE, action) {
 
 /* Action Creators */
 export const Creators = {
-  fetchSoonRequest: data => ({
-    type: Types.SOON_REQUEST,
+  fetchManyRequest: data => ({
+    type: Types.MEETUPS_REQUEST,
     payload: { data },
   }),
 
-  fetchSoonSuccess: data => ({
-    type: Types.SOON_SUCCESS,
+  fetchManySuccess: data => ({
+    type: Types.MEETUPS_SUCCESS,
     payload: { data },
   }),
 
-  fetchSoonFailure: error => ({
-    type: Types.SOON_FAILURE,
+  fetchManyFailure: error => ({
+    type: Types.MEETUPS_FAILURE,
     payload: { error },
   }),
 

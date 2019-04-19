@@ -1,20 +1,11 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 92vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  margin-top: 40px;
-
-  h4 {
-    margin: 20px 0 20px 10px;
-  }
-
-  #meetups {
-    max-width: 90%;
-  }
+  align-items: center;
 `;
 
 export const Input = styled.input.attrs({
@@ -27,8 +18,12 @@ export const Input = styled.input.attrs({
   padding: 10px;
   text-align: left;
   height: 50px;
-  width: 90%;
+  width: 900px;
   font-size: 1.2rem;
+
+  @media screen and (max-width: 768px) {
+    width: 400px;
+  }
 `;
 
 export const Error = styled.p`

@@ -9,8 +9,8 @@ import HorizontalList from '../../components/HorizontalList';
 
 class Dashboard extends Component {
   componentDidMount() {
-    const { fetchSoonRequest } = this.props;
-    fetchSoonRequest();
+    const { fetchManyRequest } = this.props;
+    fetchManyRequest();
   }
 
   handleEmpy = (list = []) => list.length > 0;

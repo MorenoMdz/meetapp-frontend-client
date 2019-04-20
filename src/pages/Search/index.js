@@ -20,18 +20,18 @@ class Search extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    const { fetchManyRequest } = this.props;
+    const { fetchByTitleRequest } = this.props;
     const { searchInput, page } = this.state;
-    fetchManyRequest({ title: searchInput, page });
+    fetchByTitleRequest({ title: searchInput, type: 'byTitle', page });
     this.handleNothingFound();
   };
 
   handleInput = async (e) => {
     // this.setState({ searchInput: e.target.value });
-    const { fetchManyRequest } = this.props;
+    const { fetchByTitleRequest } = this.props;
     const { searchInput, page } = this.state;
     setTimeout(() => {
-      fetchManyRequest({ title: searchInput, page });
+      fetchByTitleRequest({ title: searchInput, type: 'byTitle', page });
     }, 200);
     this.handleNothingFound();
   };
@@ -58,7 +58,12 @@ class Search extends Component {
             />
           </form>
           {this.handleEmpty(meetupsFound.data) ? (
-            <HorizontalList meetups={meetupsFound} error={error} loading={loading} />
+            <HorizontalList
+              listType="grid"
+              meetups={meetupsFound}
+              error={error}
+              loading={loading}
+            />
           ) : (
             <p>{nothingFound}</p>
           )}

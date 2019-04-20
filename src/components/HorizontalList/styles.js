@@ -2,9 +2,37 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  max-width: 900px;
+  /* display: flex;
+  flex-direction: row; */
+  max-width: 1200px;
+
+  .flex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 10px;
+    border: 2px teal solid;
+  }
+
+  .grid {
+    display: grid;
+    grid-gap: 10px;
+
+    align-content: center;
+    border: 2px orange solid;
+
+    @media screen and (min-width: 468px) {
+      grid-template-columns: auto;
+    }
+
+    @media screen and (min-width: 768px) {
+      grid-template-columns: auto auto;
+    }
+
+    @media screen and (min-width: 1024px) {
+      grid-template-columns: auto auto auto;
+    }
+  }
 
   background: transparent;
 `;

@@ -33,7 +33,6 @@ export default function meetup(state = INITIAL_STATE, action) {
         meetupsRegisteredSoon: action.payload.data.meetupsRegisteredSoon.data,
         meetupsNotRegSoon: action.payload.data.meetupsNotRegSoon.data,
         meetupsRecommendedSoon: action.payload.data.meetupsRecommendedSoon.data,
-        meetupsByTitle: action.payload.data.meetupsByTitle.data,
         error: '',
         flash: action.payload.data.flash,
         loading: false,
@@ -51,8 +50,7 @@ export default function meetup(state = INITIAL_STATE, action) {
     case Types.FETCH_SUCCESS:
       return {
         ...state,
-        meetupsSoon: [...action.payload.data],
-        event_date: action.payload.data.event_date,
+        meetupsByTitle: action.payload.data.data,
         flash: action.payload.data.flash,
         error: '',
         loading: false,
@@ -86,17 +84,17 @@ export const Creators = {
     payload: { error },
   }),
 
-  fetchRequest: data => ({
+  fetchByTitleRequest: data => ({
     type: Types.FETCH_REQUEST,
     payload: { data },
   }),
 
-  fetchSuccess: data => ({
+  fetchByTitleSuccess: data => ({
     type: Types.FETCH_SUCCESS,
     payload: { data },
   }),
 
-  fetchFailure: error => ({
+  fetchByTitleFailure: error => ({
     type: Types.FETCH_FAILURE,
     payload: { error },
   }),

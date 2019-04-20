@@ -14,15 +14,22 @@ export const Input = styled.input.attrs({
   background: #2f2c38;
   color: #ccc;
   border: 0;
-  margin: 20px 0;
+  margin: 20px auto;
   padding: 10px;
   text-align: left;
   height: 50px;
-  width: 900px;
   font-size: 1.2rem;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (min-width: 468px) {
     width: 400px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 700px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 900px;
   }
 `;
 

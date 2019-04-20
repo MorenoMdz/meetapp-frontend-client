@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
     font-family:Helvetica;
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;
+    height: 100vh;
   }
 `;
 

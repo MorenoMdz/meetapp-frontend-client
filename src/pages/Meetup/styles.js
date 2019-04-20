@@ -48,12 +48,6 @@ export const Card = styled.div`
     width: 100%;
     margin: 30px 0;
   }
-
-  /* a {
-    color: #6a666f;
-    font-size: 1rem;
-    text-decoration: none;
-  } */
 `;
 
 export const Description = styled.div`
@@ -66,16 +60,31 @@ export const Description = styled.div`
   small {
     color: #999;
   }
-
-  /* p {
-    margin: 30px 0;
-  } */
 `;
 
-export const Error = styled.p`
+export const ButtonWrapper = styled.div`
+  height: 100px;
+  .confirm {
+    width: 100px;
+    color: orange;
+    margin-left: 10px;
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid white;
+  }
+`;
+
+export const Error = styled.span`
   color: #ff817e;
-  margin-bottom: 20px;
   text-align: center;
   font-size: 16px;
   font-weight: bold;
+  padding-top: 10px;
+`;
+export const Success = styled.span`
+  color: teal;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  padding-top: 10px;
 `;

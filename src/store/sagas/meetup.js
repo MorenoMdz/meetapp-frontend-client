@@ -18,15 +18,12 @@ export function* newMeetup(action) {
     city,
     state,
   } = action.payload.data;
-
   if (!title || !description || !street || !number || !city || !state) {
     return yield put(
       MeetupActions.newMeetupFailure('Título, Descrição e Endereço são obrigatórios'),
     );
   }
-
   const newPreferences = preferences.filter(pref => pref.checked).map(pref => pref.id);
-
   try {
     const response = yield call(api.post, 'meetups', {
       title,
@@ -42,17 +39,10 @@ export function* newMeetup(action) {
         state,
       },
     });
-
     const data = { ...response.data, flash: 'Novo meetup salvo com sucesso!' };
-    const meetup_id = response.data.id;
-
-    console.tron.log('from saga: ', meetup_id);
-
     yield put(MeetupActions.newMeetupSuccess(data));
     history.push('/dashboard');
-    // history.push(`/meetup/${meetup_id}`);
   } catch (error) {
-    console.error(error);
     yield put(MeetupActions.newMeetupFailure('Algo deu errado, tente novamente'));
   }
 }
@@ -60,13 +50,12 @@ export function* newMeetup(action) {
 export function* fetchMeetup(action) {
   const { id } = action.payload.data;
   try {
-    // const id = localStorage.getItem('@meetapp:user_id');
+    const user_id = parseInt(localStorage.getItem('@meetapp:user_id'));
     const response = yield call(api.get, `meetups/${id}`);
-    // const userPreferences = response.data.preferences;
-    // console.log('from saga:', response.data);
+    const users = response.data.users;
+    const alreadyRegistered = users.map(user => user.id).includes(user_id);
     const address = response.data.address[0];
-    console.log('from saga:', address);
-    const data = { ...response.data, address };
+    const data = { ...response.data, address, alreadyRegistered };
     yield put(MeetupActions.fetchSuccess(data));
   } catch (error) {
     yield put(MeetupActions.fetchFailure('Algo deu errado, tente novamente'));

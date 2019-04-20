@@ -5,26 +5,68 @@ import { bindActionCreators } from 'redux';
 import { Creators as SearchActions } from '../../store/ducks/search';
 
 import { Container } from './styles';
-import HorizontalList from '../../components/HorizontalList';
+import CardList from '../../components/CardList';
+import Pagination from '../../components/Pagination';
 
 class Dashboard extends Component {
+  state = {
+    meetupsRegisteredSoon: { page: 1 },
+    meetupsNotRegSoon: { page: 1 },
+    meetupsRecommendedSoon: { page: 1 },
+  };
+
   componentDidMount() {
-    const { fetchManyRequest } = this.props;
-    fetchManyRequest();
+    this.fetchRegistered();
+    this.fetchNotRegSoon();
+    this.fetchRecommended();
   }
 
   handleEmpy = (list = []) => list.length > 0;
 
+  paginate = (list, type, page) => {
+    const isLastPage = page === list.lastPage;
+    const isFirstPage = page === 1;
+    if (type === 'next' && !isLastPage) {
+      page++;
+    } else if (type === 'prev' && !isFirstPage) {
+      page--;
+    }
+    return page;
+  };
+
+  fetchRegistered = (type) => {
+    const { fetchRegisteredRequest, meetupsRegisteredSoon } = this.props;
+    const statePage = this.state.meetupsRegisteredSoon.page;
+    const page = this.paginate(meetupsRegisteredSoon, type, statePage);
+    this.setState({ meetupsRegisteredSoon: { page } });
+    fetchRegisteredRequest({ page });
+  };
+
+  fetchNotRegSoon = (type) => {
+    const { fetchNotRegSoonRequest, meetupsNotRegSoon } = this.props;
+    const statePage = this.state.meetupsNotRegSoon.page;
+    const page = this.paginate(meetupsNotRegSoon, type, statePage);
+    this.setState({ meetupsNotRegSoon: { page } });
+    fetchNotRegSoonRequest({ page });
+  };
+
+  fetchRecommended = (type) => {
+    console.log('fetchRecommended');
+    const { fetchRecommendedRequest, meetupsRecommendedSoon } = this.props;
+    const statePage = this.state.meetupsRecommendedSoon.page;
+    const page = this.paginate(meetupsRecommendedSoon, type, statePage);
+    this.setState({ meetupsRecommendedSoon: { page } });
+    fetchRecommendedRequest({ page });
+  };
+
   render() {
     const {
-      meetupsRegistered,
       meetupsRegisteredSoon,
       meetupsRecommendedSoon,
       meetupsNotRegSoon,
       error,
       loading,
     } = this.props;
-    // console.log('meetupsRegistered from comp', meetupsRegistered.data);
 
     return (
       <Fragment>
@@ -32,34 +74,52 @@ class Dashboard extends Component {
           <div>
             <h4>Suas Inscrições para os próximos dias</h4>
             {this.handleEmpy(meetupsRegisteredSoon.data) ? (
-              <HorizontalList
+              <CardList
                 listType="flex"
                 meetups={meetupsRegisteredSoon}
                 error={error}
                 loading={loading}
               />
             ) : (
-              <p>Você tem nenhum evento acontecendo em breve.</p>
+              <p>Você não tem nenhum evento acontecendo em breve.</p>
+            )}
+            {meetupsRegisteredSoon.lastPage > 1 && (
+              <Pagination
+                page={meetupsRegisteredSoon.page}
+                total={meetupsRegisteredSoon.total}
+                lastPage={meetupsRegisteredSoon.lastPage}
+                changePage={this.fetchRegistered}
+              />
             )}
           </div>
+
           <div>
             <h4>Próximos Meetups</h4>
 
             {this.handleEmpy(meetupsNotRegSoon.data) ? (
-              <HorizontalList
+              <CardList
                 listType="flex"
                 meetups={meetupsNotRegSoon}
                 error={error}
                 loading={loading}
               />
             ) : (
-              <p>Sem recomendações no momento.</p>
+              <p>Nenhum meetup acontecendo em breve.</p>
+            )}
+            {meetupsNotRegSoon.lastPage > 1 && (
+              <Pagination
+                page={meetupsNotRegSoon.page}
+                total={meetupsNotRegSoon.total}
+                lastPage={meetupsNotRegSoon.lastPage}
+                changePage={this.fetchNotRegSoon}
+              />
             )}
           </div>
+
           <div>
             <h4>Recomendados</h4>
             {this.handleEmpy(meetupsRecommendedSoon.data) ? (
-              <HorizontalList
+              <CardList
                 listType="flex"
                 meetups={meetupsRecommendedSoon}
                 error={error}
@@ -68,14 +128,13 @@ class Dashboard extends Component {
             ) : (
               <p>Sem recomendações no momento.</p>
             )}
-          </div>
-          <div>
-            <h4>Todas Suas Inscrições</h4>
-
-            {this.handleEmpy(meetupsRegistered.data) ? (
-              <HorizontalList meetups={meetupsRegistered} error={error} loading={loading} />
-            ) : (
-              <p>Você não está inscrito em nenhum meetup.</p>
+            {meetupsRecommendedSoon.lastPage > 1 && (
+              <Pagination
+                page={meetupsRecommendedSoon.page}
+                total={meetupsRecommendedSoon.total}
+                lastPage={meetupsRecommendedSoon.lastPage}
+                changePage={this.fetchRecommended}
+              />
             )}
           </div>
         </Container>
@@ -85,7 +144,6 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => ({
-  meetupsRegistered: state.search.meetupsRegistered,
   meetupsRegisteredSoon: state.search.meetupsRegisteredSoon,
   meetupsNotRegSoon: state.search.meetupsNotRegSoon,
   meetupsRecommendedSoon: state.search.meetupsRecommendedSoon,

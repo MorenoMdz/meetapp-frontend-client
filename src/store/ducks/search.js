@@ -6,11 +6,19 @@ export const Types = {
   FETCH_REQUEST: 'search/FETCH_REQUEST',
   FETCH_SUCCESS: 'search/FETCH_SUCCESS',
   FETCH_FAILURE: 'search/FETCH_FAILURE',
+  NOT_REG_REQUEST: 'search/NOT_REG_REQUEST',
+  NOT_REG_SUCCESS: 'search/NOT_REG_SUCCESS',
+  NOT_REG_FAILURE: 'search/NOT_REG_FAILURE',
+  RECOMMENDED_REQUEST: 'search/RECOMMENDED_REQUEST',
+  RECOMMENDED_SUCCESS: 'search/RECOMMENDED_SUCCESS',
+  RECOMMENDED_FAILURE: 'search/RECOMMENDED_FAILURE',
+  REGISTERED_REQUEST: 'search/REGISTERED_REQUEST',
+  REGISTERED_SUCCESS: 'search/REGISTERED_SUCCESS',
+  REGISTERED_FAILURE: 'search/REGISTERED_FAILURE',
 };
 
 /* Reducer */
 const INITIAL_STATE = {
-  meetupsRegistered: {},
   meetupsRegisteredSoon: {},
   meetupsRecommendedSoon: {},
   meetupsNotRegSoon: {},
@@ -20,24 +28,56 @@ const INITIAL_STATE = {
   error: '',
 };
 
-// Achei extenso as declarações aqui, algo que possa ficar mais compacto o código dentro de cada case?
 export default function meetup(state = INITIAL_STATE, action) {
   switch (action.type) {
-    // New meetup
-    case Types.MEETUPS_REQUEST:
+    // Fetch Registered
+    case Types.REGISTERED_REQUEST:
       return { ...state, loading: true };
-    case Types.MEETUPS_SUCCESS:
+    case Types.REGISTERED_SUCCESS:
       return {
         ...state,
-        meetupsRegistered: action.payload.data.meetupsRegistered.data,
         meetupsRegisteredSoon: action.payload.data.meetupsRegisteredSoon.data,
-        meetupsNotRegSoon: action.payload.data.meetupsNotRegSoon.data,
-        meetupsRecommendedSoon: action.payload.data.meetupsRecommendedSoon.data,
-        error: '',
         flash: action.payload.data.flash,
+        error: '',
         loading: false,
       };
-    case Types.MEETUPS_FAILURE:
+    case Types.REGISTERED_FAILURE:
+      return {
+        ...state,
+        error: action.payload.error,
+        flash: '',
+        loading: false,
+      };
+    // Fetch not reg soon
+    case Types.NOT_REG_REQUEST:
+      return { ...state, loading: true };
+    case Types.NOT_REG_SUCCESS:
+      return {
+        ...state,
+        meetupsNotRegSoon: action.payload.data.meetupsNotRegSoon.data,
+        flash: action.payload.data.flash,
+        error: '',
+        loading: false,
+      };
+    case Types.NOT_REG_FAILURE:
+      return {
+        ...state,
+        error: action.payload.error,
+        flash: '',
+        loading: false,
+      };
+    // Fetch Recommended
+    case Types.RECOMMENDED_REQUEST:
+      return { ...state, loading: true };
+    case Types.RECOMMENDED_SUCCESS:
+      return {
+        ...state,
+        meetupsRecommendedSoon: action.payload.data.meetupsRecommendedSoon.data,
+        flash: action.payload.data.flash,
+        error: '',
+        loading: false,
+      };
+    case Types.RECOMMENDED_FAILURE:
       return {
         ...state,
         error: action.payload.error,
@@ -73,27 +113,62 @@ export const Creators = {
     type: Types.MEETUPS_REQUEST,
     payload: { data },
   }),
-
   fetchManySuccess: data => ({
     type: Types.MEETUPS_SUCCESS,
     payload: { data },
   }),
-
   fetchManyFailure: error => ({
     type: Types.MEETUPS_FAILURE,
     payload: { error },
   }),
-
+  // Not registered Soon
+  fetchNotRegSoonRequest: data => ({
+    type: Types.NOT_REG_REQUEST,
+    payload: { data },
+  }),
+  fetchNotRegSoonSuccess: data => ({
+    type: Types.NOT_REG_SUCCESS,
+    payload: { data },
+  }),
+  fetchNotRegSoonFailure: error => ({
+    type: Types.NOT_REG_FAILURE,
+    payload: { error },
+  }),
+  // Registered Soon
+  fetchRegisteredRequest: data => ({
+    type: Types.REGISTERED_REQUEST,
+    payload: { data },
+  }),
+  fetchRegisteredSuccess: data => ({
+    type: Types.REGISTERED_SUCCESS,
+    payload: { data },
+  }),
+  fetchRegisteredFailure: error => ({
+    type: Types.REGISTERED_FAILURE,
+    payload: { error },
+  }),
+  // Recommended
+  fetchRecommendedRequest: data => ({
+    type: Types.RECOMMENDED_REQUEST,
+    payload: { data },
+  }),
+  fetchRecommendedSuccess: data => ({
+    type: Types.RECOMMENDED_SUCCESS,
+    payload: { data },
+  }),
+  fetchRecommendedFailure: error => ({
+    type: Types.RECOMMENDED_FAILURE,
+    payload: { error },
+  }),
+  // Search by Title
   fetchByTitleRequest: data => ({
     type: Types.FETCH_REQUEST,
     payload: { data },
   }),
-
   fetchByTitleSuccess: data => ({
     type: Types.FETCH_SUCCESS,
     payload: { data },
   }),
-
   fetchByTitleFailure: error => ({
     type: Types.FETCH_FAILURE,
     payload: { error },

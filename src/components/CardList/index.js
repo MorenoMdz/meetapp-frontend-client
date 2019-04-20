@@ -4,7 +4,7 @@ import { Container, MeetupCard, NavLink } from './styles';
 import Spinner from '../Spinner';
 import goIcon from '../../assets/play-button.svg';
 
-const HorizontalList = ({
+const CardList = ({
   meetups, listType, loading, error,
 }) => (
   <Container>
@@ -15,7 +15,6 @@ const HorizontalList = ({
       ) : (
         meetups.data.map(meetup => (
           <MeetupCard key={meetup.id}>
-            {/* <MeetupCard className={`${listType} checkbox`} key={meetup.id}> */}
             <img src={meetup.cover_url} alt="Capa do meetup" />
             <div id="title-card">
               <div id="title-text">
@@ -35,4 +34,4 @@ const HorizontalList = ({
   </Container>
 );
 
-export default HorizontalList;
+export default CardList;

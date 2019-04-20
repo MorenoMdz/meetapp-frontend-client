@@ -5,12 +5,11 @@ import { bindActionCreators } from 'redux';
 import { Creators as SearchActions } from '../../store/ducks/search';
 
 import { Input, Container } from './styles';
-import Spinner from '../../components/Spinner';
-import HorizontalList from '../../components/HorizontalList';
+import CardList from '../../components/CardList';
 
 class Search extends Component {
   state = {
-    page: 1, // get from page params?
+    page: 1,
     searchInput: '',
     meetupsFound: [],
     error: false,
@@ -58,12 +57,7 @@ class Search extends Component {
             />
           </form>
           {this.handleEmpty(meetupsFound.data) ? (
-            <HorizontalList
-              listType="grid"
-              meetups={meetupsFound}
-              error={error}
-              loading={loading}
-            />
+            <CardList listType="grid" meetups={meetupsFound} error={error} loading={loading} />
           ) : (
             <p>{nothingFound}</p>
           )}

@@ -10,30 +10,47 @@ export function* fetchByTitle(action) {
     const meetupsByTitle = yield call(api.get, 'meetups/by-title', {
       params: { title, page },
     });
-    console.log('by title: ', meetupsByTitle);
     yield put(SearchActions.fetchByTitleSuccess(meetupsByTitle));
   } catch (error) {
-    console.log('from saga: ', error);
     yield put(SearchActions.fetchByTitleFailure('Algo deu errado, tente novamente'));
   }
 }
 
-export function* fetchManyMeetups(action) {
+export function* fetchRegisteredSoon(action) {
+  const { page } = action.payload.data;
   try {
-    const meetupsRegistered = yield call(api.get, 'meetups/registered');
-    const meetupsRegisteredSoon = yield call(api.get, 'meetups/registered-soon');
-    const meetupsNotRegSoon = yield call(api.get, 'meetups/not-registered');
-    const meetupsRecommendedSoon = yield call(api.get, 'meetups/recommended-soon');
+    const meetupsRegisteredSoon = yield call(api.get, `meetups/registered-soon?page=${page}`);
     const data = {
-      meetupsRegistered,
       meetupsRegisteredSoon,
-      meetupsRecommendedSoon,
+    };
+    yield put(SearchActions.fetchRegisteredSuccess(data));
+  } catch (error) {
+    yield put(SearchActions.fetchRegisteredFailure('Algo deu errado, tente novamente'));
+  }
+}
+
+export function* fetchNotRegSoon(action) {
+  const { page } = action.payload.data;
+  try {
+    const meetupsNotRegSoon = yield call(api.get, `meetups/not-registered?page=${page}`);
+    const data = {
       meetupsNotRegSoon,
     };
-    yield put(SearchActions.fetchManySuccess(data));
-    // console.log('meetupsByTitle from saga:', meetupsByTitle.data);
+    yield put(SearchActions.fetchNotRegSoonSuccess(data));
   } catch (error) {
-    console.log('from saga: ', error);
-    yield put(SearchActions.fetchManyFailure('Algo deu errado, tente novamente'));
+    yield put(SearchActions.fetchNotRegSoonFailure('Algo deu errado, tente novamente'));
+  }
+}
+
+export function* fetchRecommendedSoon(action) {
+  const { page } = action.payload.data;
+  try {
+    const meetupsRecommendedSoon = yield call(api.get, `meetups/recommended-soon?page=${page}`);
+    const data = {
+      meetupsRecommendedSoon,
+    };
+    yield put(SearchActions.fetchRecommendedSuccess(data));
+  } catch (error) {
+    yield put(SearchActions.fetchRecommendedFailure('Algo deu errado, tente novamente'));
   }
 }

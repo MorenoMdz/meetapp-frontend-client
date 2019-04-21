@@ -2,11 +2,13 @@
   "name": "meetapp",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://morenomdz.github.io/meetapp-frontend-client",
   "dependencies": {
     "@emotion/core": "^10.0.10",
     "axios": "^0.18.0",
     "connected-react-router": "^6.4.0",
     "filesize": "^4.1.2",
+    "gh-pages": "^2.0.1",
     "history": "^4.9.0",
     "lodash": "^4.17.11",
     "prop-types": "^15.7.2",
@@ -32,7 +34,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"

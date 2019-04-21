@@ -22,7 +22,7 @@ const store = createStore(
   connectRouter(history)(reducers),
   compose(
     applyMiddleware(...middlewares),
-    tronMiddleware(),
+    // tronMiddleware(),
   ),
 );
 

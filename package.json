@@ -2,7 +2,6 @@
   "name": "meetapp",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://morenomdz.github.io/meetapp-frontend-client",
   "dependencies": {
     "eslint-plugin-import": "^2.16.0",
     "eslint": "5.12.0",

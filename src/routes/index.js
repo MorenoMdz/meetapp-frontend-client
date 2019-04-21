@@ -14,6 +14,7 @@ import Search from '../pages/Search';
 import Profile from '../pages/Profile';
 import Meetup from '../pages/Meetup';
 import NewMeetup from '../pages/NewMeetup';
+import About from '../pages/About';
 import Navbar from '../components/Navbar';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -41,6 +42,7 @@ const Routes = () => (
       <PrivateRoute path="/profile" component={Profile} />
       <PrivateRoute path="/meetup/:id" component={Meetup} />
       <PrivateRoute path="/newmeetup" component={NewMeetup} />
+      <PrivateRoute path="/about" component={About} />
       <Route path="*" component={() => <h1>Page not found</h1>} />
     </Switch>
   </ConnectedRouter>

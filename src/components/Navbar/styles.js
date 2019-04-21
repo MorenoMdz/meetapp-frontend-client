@@ -20,13 +20,14 @@ export const NavMenu = styled.div`
   position: absolute;
   right: 0;
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-  max-width: 200px;
+  max-width: 300px;
   margin-top: 22px;
   padding: 25px;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.7);
   line-height: 1.5;
 
   text-decoration: none;
@@ -36,7 +37,7 @@ export const NavMenu = styled.div`
   strong {
     margin-bottom: 10px;
     border-bottom: 2px solid #e5556e;
-    max-width: 15ch;
+    max-width: 25ch;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

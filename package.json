@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://morenomdz.github.io/meetapp-frontend-client",
   "dependencies": {
+    "eslint-plugin-import": "^2.16.0",
     "@emotion/core": "^10.0.10",
     "axios": "^0.18.0",
     "connected-react-router": "^6.4.0",

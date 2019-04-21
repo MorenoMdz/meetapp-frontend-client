@@ -5,6 +5,11 @@
   "homepage": "https://morenomdz.github.io/meetapp-frontend-client",
   "dependencies": {
     "eslint-plugin-import": "^2.16.0",
+    "eslint": "5.12.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
     "@emotion/core": "^10.0.10",
     "axios": "^0.18.0",
     "connected-react-router": "^6.4.0",
@@ -48,11 +53,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "devDependencies": {
-    "eslint": "5.12.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4"
-  }
+  "devDependencies": {}
 }

@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import {
   Card, Container, Form, Error,
 } from './styles';
 import Button from '../../components/Button';
+import Navbar from '../../components/Navbar';
 
 class Login extends Component {
+  static propTypes = {
+    flash: PropTypes.string,
+    loading: PropTypes.bool,
+    error: PropTypes.string,
+  };
+
   state = {
     name: 'Moreno',
     preferences: [
@@ -22,9 +30,6 @@ class Login extends Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(this.state);
-
     // TODO POST to server to login
     this.setState({ email: '', password: '', loading: true });
     // redirect to dashboard
@@ -37,6 +42,7 @@ class Login extends Component {
 
     return (
       <Container>
+        <Navbar />
         <Card>
           <strong>
             Olá,

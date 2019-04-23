@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -11,6 +12,13 @@ import Button from '../../components/Button';
 import logo from '../../assets/logo.svg';
 
 class SignUp extends Component {
+  static propTypes = {
+    signupRequest: PropTypes.func.isRequired,
+    history: PropTypes.object,
+    loading: PropTypes.bool,
+    error: PropTypes.string,
+  };
+
   state = {
     name: '',
     email: '',
@@ -81,7 +89,6 @@ class SignUp extends Component {
 const mapStateToProps = state => ({
   error: state.login.error,
   loading: state.login.loading,
-  isLogged: state.login.isLogged,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(SignupActions, dispatch);

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,8 +10,21 @@ import {
 } from './styles';
 import Button from '../../components/Button';
 import Spinner from '../../components/Spinner';
+import Navbar from '../../components/Navbar';
 
 class Profile extends Component {
+  static propTypes = {
+    fetchRequest: PropTypes.func.isRequired,
+    userRequest: PropTypes.func.isRequired,
+    name: PropTypes.string,
+    email: PropTypes.string,
+    userPreferences: PropTypes.object,
+    history: PropTypes.object,
+    flash: PropTypes.string,
+    loading: PropTypes.bool,
+    error: PropTypes.string,
+  };
+
   // 1) Inicio o loading como true
   state = {
     name: '',
@@ -76,6 +90,7 @@ class Profile extends Component {
 
     return (
       <Fragment>
+        <Navbar />
         <Container>
           <Card>
             {(error && <Error>{error}</Error>) || (flash && <Success>{flash}</Success>)}

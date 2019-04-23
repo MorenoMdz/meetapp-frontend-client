@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -6,6 +7,7 @@ import { Creators as MeetupActions } from '../../store/ducks/meetup';
 
 import api from '../../services/api';
 import Spinner from '../../components/Spinner';
+import Navbar from '../../components/Navbar';
 
 import {
   Card, Container, Description, Error, Success, ButtonWrapper,
@@ -13,15 +15,30 @@ import {
 import Button from '../../components/Button';
 
 class Meetup extends Component {
+  static propTypes = {
+    fetchRequest: PropTypes.func.isRequired,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    cover: PropTypes.string,
+    event_date: PropTypes.string,
+    address: PropTypes.object,
+    alreadyRegistered: PropTypes.bool,
+    error: PropTypes.string,
+  };
+
   state = {
     flash: '',
     error: '',
     hideButtons: false,
     unsubConfirmation: false,
+    loading: true,
   };
 
   componentDidMount() {
     this.fetchMeetup();
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, 1000);
   }
 
   fetchMeetup() {
@@ -52,7 +69,7 @@ class Meetup extends Component {
     }
   };
 
-  handleUnsb = async (e) => {
+  handleUnsub = async (e) => {
     e.preventDefault();
     const meetup_id = this.props.match.params.id;
     const response = await api.delete(`/meetups/${meetup_id}/unregister`);
@@ -85,10 +102,10 @@ class Meetup extends Component {
     const {
       error, flash, loading, hideButtons, unsubConfirmation,
     } = this.state;
-    console.log('alreadyRegistered: ', this.props.alreadyRegistered);
 
     return (
       <Fragment>
+        <Navbar />
         <Container>
           {loading ? (
             <Spinner loading={loading} />
@@ -123,7 +140,7 @@ class Meetup extends Component {
                         Sair do meetup
                       </button>
                     ) : (
-                      <button className="confirm" onClick={e => this.handleUnsb(e)}>
+                      <button className="confirm" onClick={e => this.handleUnsub(e)}>
                         Certeza?
                       </button>
                     )}

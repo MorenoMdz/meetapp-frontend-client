@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
+
 import DatePicker from 'react-datepicker';
 import { uniqueId } from 'lodash';
 import filesize from 'filesize';
@@ -7,6 +9,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import api from '../../services/api';
 import { Creators as MeetupActions } from '../../store/ducks/meetup';
+import Navbar from '../../components/Navbar';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -27,6 +30,13 @@ import Upload from '../../components/Upload';
 import FileList from '../../components/FileList';
 
 class Meetup extends Component {
+  static propTypes = {
+    newMeetupRequest: PropTypes.func.isRequired,
+    flash: PropTypes.string,
+    loading: PropTypes.bool,
+    error: PropTypes.string,
+  };
+
   state = {
     title: '',
     description: '',
@@ -169,6 +179,7 @@ class Meetup extends Component {
 
     return (
       <Fragment>
+        <Navbar />
         <Container>
           <Card>
             {(error && <Error>{error}</Error>) || (flash && <Success>{flash}</Success>)}

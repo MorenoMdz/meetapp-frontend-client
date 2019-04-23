@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Container, MeetupCard, NavLink } from './styles';
 import Spinner from '../Spinner';
@@ -33,5 +34,12 @@ const CardList = ({
     </div>
   </Container>
 );
+
+CardList.propTypes = {
+  meetups: PropTypes.object.isRequired,
+  type: PropTypes.string,
+  loading: PropTypes.bool,
+  error: PropTypes.string,
+};
 
 export default CardList;

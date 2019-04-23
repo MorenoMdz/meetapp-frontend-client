@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -6,8 +7,16 @@ import { Creators as SearchActions } from '../../store/ducks/search';
 
 import { Input, Container } from './styles';
 import CardList from '../../components/CardList';
+import Navbar from '../../components/Navbar';
 
 class Search extends Component {
+  static propTypes = {
+    fetchByTitleRequest: PropTypes.func.isRequired,
+    meetupsFound: PropTypes.object,
+    loading: PropTypes.bool,
+    error: PropTypes.string,
+  };
+
   state = {
     page: 1,
     searchInput: '',
@@ -26,7 +35,6 @@ class Search extends Component {
   };
 
   handleInput = async (e) => {
-    // this.setState({ searchInput: e.target.value });
     const { fetchByTitleRequest } = this.props;
     const { searchInput, page } = this.state;
     setTimeout(() => {
@@ -42,11 +50,10 @@ class Search extends Component {
   render() {
     const { searchInput, nothingFound } = this.state;
     const { meetupsFound, loading, error } = this.props;
-    console.log('found', this.props.meetupsFound.data);
-    console.log('loading', loading);
 
     return (
       <Fragment>
+        <Navbar />
         <Container>
           <form onSubmit={e => this.handleSubmit(e)}>
             <Input

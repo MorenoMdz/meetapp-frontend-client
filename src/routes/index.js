@@ -1,5 +1,5 @@
 import React from 'react';
-import { /* BrowserRouter, */ Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 
 import { isAuthenticated } from '../services/auth';
@@ -15,7 +15,6 @@ import Profile from '../pages/Profile';
 import Meetup from '../pages/Meetup';
 import NewMeetup from '../pages/NewMeetup';
 import About from '../pages/About';
-import Navbar from '../components/Navbar';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -31,11 +30,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 const Routes = () => (
   <ConnectedRouter history={history}>
-    <Route exact path="/" component={SignIn} />
-    <Route path="/signin" component={SignIn} />
-    <Route path="/signup" component={SignUp} />
-    <Navbar />
     <Switch>
+      <Route exact path="/" component={SignIn} />
+      <Route path="/signin" component={SignIn} />
+      <Route path="/signup" component={SignUp} />
       <PrivateRoute path="/dashboard" component={Dashboard} />
       <PrivateRoute path="/search" component={Search} />
       <PrivateRoute path="/preferences" component={Preferences} />

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -11,6 +12,13 @@ import Button from '../../components/Button';
 import logo from '../../assets/logo.svg';
 
 class Login extends Component {
+  static propTypes = {
+    loginRequest: PropTypes.func.isRequired,
+    history: PropTypes.object,
+    loading: PropTypes.bool,
+    error: PropTypes.string,
+  };
+
   state = {
     email: '',
     password: '',
@@ -18,12 +26,9 @@ class Login extends Component {
 
   handleSubmit = async (e) => {
     const { history } = this.props;
-
     e.preventDefault();
-
     const { loginRequest } = this.props;
     const { email, password } = this.state;
-
     loginRequest({ email, password, history });
   };
 
@@ -61,7 +66,6 @@ class Login extends Component {
 const mapStateToProps = state => ({
   error: state.login.error,
   loading: state.login.loading,
-  isLogged: state.login.isLogged,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(LoginActions, dispatch);

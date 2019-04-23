@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -13,6 +14,13 @@ import {
 } from './styles';
 
 class Navbar extends Component {
+  static propTypes = {
+    fetchRequest: PropTypes.func.isRequired,
+    name: PropTypes.string,
+    loading: PropTypes.bool,
+    error: PropTypes.string,
+  };
+
   state = { menuActive: false, prefLoading: false, name: '' };
 
   componentDidMount() {

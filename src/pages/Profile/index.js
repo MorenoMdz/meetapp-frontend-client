@@ -18,7 +18,7 @@ class Profile extends Component {
     userRequest: PropTypes.func.isRequired,
     name: PropTypes.string,
     email: PropTypes.string,
-    userPreferences: PropTypes.object,
+    userPreferences: PropTypes.array,
     history: PropTypes.object,
     flash: PropTypes.string,
     loading: PropTypes.bool,
@@ -52,6 +52,7 @@ class Profile extends Component {
         email,
         preferences: userPreferences,
         loading: false,
+        btnLoading: false,
       });
     }, 1000);
   };
@@ -71,6 +72,7 @@ class Profile extends Component {
       preferences,
       history,
     });
+    this.setState({ btnLoading: true });
   };
 
   handlePrefChange = (e, name) => {
@@ -85,7 +87,7 @@ class Profile extends Component {
   render() {
     const { flash, error } = this.props;
     const {
-      name, email, preferences, loading,
+      name, email, preferences, loading, btnLoading,
     } = this.state;
 
     return (
@@ -141,7 +143,9 @@ class Profile extends Component {
                       </label>
                     </div>
                   ))}
-                <Button type="submit">{loading ? 'Carregando' : 'Salvar'}</Button>
+                <Button type="submit" loading={btnLoading} disabled={btnLoading}>
+                  Salvar
+                </Button>
               </Form>
             )}
           </Card>

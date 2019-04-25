@@ -5,10 +5,15 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* margin-top: 40px; */
   margin: 40px auto;
+
   h4 {
-    margin: 20px 0 20px 0;
+    margin: 20px 0;
+  }
+
+  div {
+    justify-content: center;
+    margin-bottom: 30px;
   }
 `;
 

@@ -10,7 +10,7 @@ import siteLogo from '../../assets/logo-white.svg';
 import profileLogo from '../../assets/user.svg';
 import activeProfileLogo from '../../assets/userFull.svg';
 import {
-  Container, ToggleBtn, NavLink, NavMenu, MenuLink,
+  Container, ToggleBtn, NavLink, NavMenu, Home, MenuLink,
 } from './styles';
 
 class Navbar extends Component {
@@ -55,10 +55,14 @@ class Navbar extends Component {
     return (
       <Container>
         <div onClick={this.hideMenu}>
-          <img src={siteLogo} alt="Logo" />
-          <NavLink to="/dashboard">Inicio</NavLink>
+          <Home to="/dashboard">
+            <img src={siteLogo} alt="Logo" />
+          </Home>
+          <NavLink className="dash-btn" to="/dashboard">
+            Inicio
+          </NavLink>
           <NavLink to="/newmeetup">Novo Meetup</NavLink>
-          <NavLink to="/search">Buscar Meetup</NavLink>
+          <NavLink to="/search">Buscar</NavLink>
         </div>
 
         <div>

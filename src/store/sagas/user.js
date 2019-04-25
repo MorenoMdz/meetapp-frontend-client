@@ -1,8 +1,31 @@
 import { call, put } from 'redux-saga/effects';
 
 import api from '../../services/api';
+import history from '../../routes/history';
 
 import { Creators as UserActions } from '../ducks/user';
+
+export function* setPreferences(action) {
+  const id = localStorage.getItem('@meetapp:user_id');
+  const { preferences } = action.payload.data;
+
+  const newPreferences = preferences.filter(pref => pref.checked).map(pref => pref.id);
+
+  try {
+    const response = yield call(api.put, `users/${id}`, {
+      preferences: newPreferences,
+    });
+
+    // TODO flash msg user update in!
+    const data = { ...response.data, flash: 'Preferências salvas com sucesso!' };
+
+    yield put(UserActions.setPreferencesSuccess(data));
+    // history.push('/dashboard');
+    yield put(history.push('/dashboard'));
+  } catch (error) {
+    yield put(UserActions.setPreferencesFailure('Algo deu errado, tente novamente'));
+  }
+}
 
 export function* userUpdate(action) {
   const id = localStorage.getItem('@meetapp:user_id');
@@ -17,10 +40,12 @@ export function* userUpdate(action) {
 
   const newPreferences = preferences.filter(pref => pref.checked).map(pref => pref.id);
 
-  if (!name || !email || !password || !password_confirmation) {
-    return yield put(
-      UserActions.userFailure('Nome, Email, Senha e confirmação de Senha são obrigatórios'),
-    );
+  if (!name || !email) {
+    return yield put(UserActions.userFailure('Nome e Email são obrigatórios'));
+  }
+
+  if (password && password !== password_confirmation) {
+    return yield put(UserActions.userFailure('Senha confirmação não conferem'));
   }
 
   try {

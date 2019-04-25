@@ -30,12 +30,13 @@ export function* signupUser(action) {
       email,
       password,
     });
-
     login(loginResponse.data.token);
-
+    localStorage.removeItem('@meetapp:user_id');
+    localStorage.setItem('@meetapp:user_id', loginResponse.data.user_id);
     yield put(SignupActions.signupSuccess(response.data));
     history.push('/preferences');
   } catch (error) {
-    yield put(SignupActions.signupFailure('Algo deu errado, tente novamente'));
+    console.log('from saga: ', error.response);
+    yield put(SignupActions.signupFailure(error.response));
   }
 }

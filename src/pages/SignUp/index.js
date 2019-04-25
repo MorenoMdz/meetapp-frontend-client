@@ -14,9 +14,8 @@ import logo from '../../assets/logo.svg';
 class SignUp extends Component {
   static propTypes = {
     signupRequest: PropTypes.func.isRequired,
-    history: PropTypes.object,
     loading: PropTypes.bool,
-    error: PropTypes.string,
+    error: PropTypes.array,
   };
 
   state = {
@@ -24,6 +23,7 @@ class SignUp extends Component {
     email: '',
     password: '',
     password_confirmation: '',
+    loading: false,
   };
 
   handleSubmit = async (e) => {
@@ -43,17 +43,19 @@ class SignUp extends Component {
       password_confirmation,
       history,
     });
+    this.setState({ loading: true });
   };
 
   render() {
     const { error, loading } = this.props;
-
+    console.log(error);
+    // TODO localização dos erros server side
     return (
       <Container>
         <Card>
           <Logo src={logo} />
-          <Form onSubmit={this.handleSubmit} name="login">
-            {error && <Error>{error}</Error>}
+          <Form onSubmit={this.handleSubmit} name="signup">
+            {error && error.map(err => <Error key={err.message}>{err.message}</Error>)}
 
             <label>Nome</label>
             <Input
@@ -77,7 +79,9 @@ class SignUp extends Component {
               onChange={e => this.setState({ password_confirmation: e.target.value })}
               placeholder="Confirme sua senha secreta"
             />
-            <Button type="submit">{loading ? 'carregando' : 'Criar conta'}</Button>
+            <Button type="submit" disabled={loading}>
+              {loading ? 'carregando' : 'Criar conta'}
+            </Button>
           </Form>
           <Login to="/signin">Já tenho conta</Login>
         </Card>
@@ -87,8 +91,8 @@ class SignUp extends Component {
 }
 
 const mapStateToProps = state => ({
-  error: state.login.error,
-  loading: state.login.loading,
+  error: state.signup.error,
+  loading: state.signup.loading,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators(SignupActions, dispatch);

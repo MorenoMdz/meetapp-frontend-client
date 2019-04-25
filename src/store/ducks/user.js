@@ -6,6 +6,9 @@ export const Types = {
   FETCH_REQUEST: 'user/FETCH_REQUEST',
   FETCH_SUCCESS: 'user/FETCH_SUCCESS',
   FETCH_FAILURE: 'user/FETCH_FAILURE',
+  SET_PREFERENCES_REQUEST: 'user/SET_PREFERENCES_REQUEST',
+  SET_PREFERENCES_SUCCESS: 'user/SET_PREFERENCES_SUCCESS',
+  SET_PREFERENCES_FAILURE: 'user/SET_PREFERENCES_FAILURE',
 };
 
 /* Reducer */
@@ -61,6 +64,23 @@ export default function user(state = INITIAL_STATE, action) {
         flash: '',
         loading: false,
       };
+    // Set Preferences
+    case Types.SET_PREFERENCES_REQUEST:
+      return { ...state, loading: true };
+    case Types.SET_PREFERENCES_SUCCESS:
+      return {
+        ...state,
+        flash: action.payload.data.flash,
+        error: '',
+        loading: false,
+      };
+    case Types.SET_PREFERENCES_FAILURE:
+      return {
+        ...state,
+        error: action.payload.error,
+        flash: '',
+        loading: false,
+      };
     default:
       return state;
   }
@@ -95,6 +115,21 @@ export const Creators = {
 
   fetchFailure: error => ({
     type: Types.FETCH_FAILURE,
+    payload: { error },
+  }),
+
+  setPreferencesRequest: data => ({
+    type: Types.SET_PREFERENCES_REQUEST,
+    payload: { data },
+  }),
+
+  setPreferencesSuccess: data => ({
+    type: Types.SET_PREFERENCES_SUCCESS,
+    payload: { data },
+  }),
+
+  setPreferencesFailure: error => ({
+    type: Types.SET_PREFERENCES_FAILURE,
     payload: { error },
   }),
 };

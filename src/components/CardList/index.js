@@ -21,7 +21,11 @@ const CardList = ({
               <div id="title-text">
                 <h4>{meetup.title}</h4>
                 <small>
-                  {meetup.total_members === 1 ? '1 membro' : `${meetup.total_members} membros`}
+                  {!meetup.total_members
+                    ? 'Nenhum participante'
+                    : meetup.total_members === 1
+                      ? '1 membro'
+                      : `${meetup.total_members} membros`}
                 </small>
               </div>
               <NavLink to={`meetup/${meetup.id}`}>

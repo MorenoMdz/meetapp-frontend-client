@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 100vh;
-  width: 100vw;
-  border: 1px solid white;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,14 +13,9 @@ export const Card = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 30px;
   width: 380px;
-  max-height: 500px;
-
-  strong {
-    font-size: 1.4rem;
-    margin-bottom: 20px;
-  }
+  margin-top: 100px;
+  margin-bottom: 30px;
 
   p {
     margin-bottom: 20px;
@@ -49,7 +42,6 @@ export const Form = styled.form`
   }
 
   label {
-    margin-left: 10px;
     font-size: 18px;
   }
 
@@ -84,7 +76,26 @@ export const Form = styled.form`
   }
 `;
 
-export const Input = styled.input``;
+export const Input = styled.input.attrs({
+  placeholderTextColor: '#999',
+})`
+  background: transparent;
+  border: 0;
+  margin: 20px 0;
+  margin-top: 0;
+  height: 50px;
+  width: 100%;
+  font-size: 1.2rem;
+  color: #ccc;
+`;
+
+export const Success = styled.p`
+  color: #b061ff;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+`;
 
 export const Error = styled.p`
   color: #ff817e;

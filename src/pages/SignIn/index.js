@@ -11,7 +11,7 @@ import {
 import Button from '../../components/Button';
 import logo from '../../assets/logo.svg';
 
-class Login extends Component {
+class SignIn extends Component {
   static propTypes = {
     loginRequest: PropTypes.func.isRequired,
     history: PropTypes.object,
@@ -22,6 +22,7 @@ class Login extends Component {
   state = {
     email: '',
     password: '',
+    loading: false,
   };
 
   handleSubmit = async (e) => {
@@ -30,6 +31,7 @@ class Login extends Component {
     const { loginRequest } = this.props;
     const { email, password } = this.state;
     loginRequest({ email, password, history });
+    this.setState({ loading: true });
   };
 
   render() {
@@ -45,16 +47,16 @@ class Login extends Component {
             <Input
               onChange={e => this.setState({ email: e.target.value })}
               placeholder="Digite seu email"
-              /* required */
             />
             <label>Senha</label>
             <Input
               type="password"
               onChange={e => this.setState({ password: e.target.value })}
               placeholder="Sua senha secreta"
-              /* required */
             />
-            <Button type="submit">{loading ? 'carregando' : 'Entrar'}</Button>
+            <Button type="submit" disabled={loading}>
+              {loading ? 'carregando' : 'Entrar'}
+            </Button>
           </Form>
           <Signup to="/signup">Criar conta grátis</Signup>
         </Card>
@@ -73,4 +75,4 @@ const mapDispatchToProps = dispatch => bindActionCreators(LoginActions, dispatch
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Login);
+)(SignIn);

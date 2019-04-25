@@ -15,6 +15,7 @@ export const Card = styled.div`
   align-items: flex-start;
   width: 380px;
   margin-top: 100px;
+  margin-bottom: 30px;
 
   p {
     margin-bottom: 20px;

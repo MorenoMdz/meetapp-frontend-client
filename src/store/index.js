@@ -16,13 +16,13 @@ const sagaMiddleware = createSagaMiddleware({ sagaMonitor });
 middlewares.push(sagaMiddleware);
 middlewares.push(routerMiddleware(history));
 
-// const tronMiddleware = process.env.NODE_ENV === 'development' ? console.tron.createEnhancer : createStore;
+const tronMiddleware = process.env.NODE_ENV === 'development' ? console.tron.createEnhancer : createStore;
 
 const store = createStore(
   connectRouter(history)(reducers),
   compose(
     applyMiddleware(...middlewares),
-    // tronMiddleware(),
+    tronMiddleware(),
   ),
 );
 

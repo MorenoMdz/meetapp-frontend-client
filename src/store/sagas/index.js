@@ -10,7 +10,7 @@ import { Types as SearchTypes } from '../ducks/search';
 // SAGA
 import { loginUser, logoutUser } from './login';
 import { signupUser } from './signup';
-import { userUpdate, fetchUser } from './user';
+import { userUpdate, fetchUser, setPreferences } from './user';
 import { newMeetup, fetchMeetup } from './meetup';
 import {
   fetchByTitle, fetchRegisteredSoon, fetchNotRegSoon, fetchRecommendedSoon,
@@ -23,6 +23,7 @@ export default function* rootSaga() {
     takeLatest(SignupTypes.REQUEST, signupUser),
     takeLatest(UserTypes.REQUEST, userUpdate),
     takeLatest(UserTypes.FETCH_REQUEST, fetchUser),
+    takeLatest(UserTypes.SET_PREFERENCES_REQUEST, setPreferences),
     takeLatest(MeetupTypes.NEW_REQUEST, newMeetup),
     takeLatest(MeetupTypes.FETCH_REQUEST, fetchMeetup),
     takeLatest(SearchTypes.REGISTERED_REQUEST, fetchRegisteredSoon),

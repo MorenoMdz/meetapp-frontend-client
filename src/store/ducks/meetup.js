@@ -61,6 +61,7 @@ export default function meetup(state = INITIAL_STATE, action) {
         address: action.payload.data.address,
         cover_url: action.payload.data.cover_url,
         event_date: action.payload.data.event_date,
+        total_members: action.payload.data.total_members,
         alreadyRegistered: action.payload.data.alreadyRegistered,
         users: action.payload.data.users,
         flash: action.payload.data.flash,

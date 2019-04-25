@@ -96,7 +96,7 @@ class Dashboard extends Component {
               <h4>Suas Inscrições para os próximos dias</h4>
               {this.handleEmpy(meetupsRegisteredSoon.data) ? (
                 <CardList
-                  listType="flex"
+                  listType="grid"
                   meetups={meetupsRegisteredSoon}
                   error={error}
                   loading={loading}
@@ -118,7 +118,7 @@ class Dashboard extends Component {
               <h4>Próximos Meetups</h4>
               {this.handleEmpy(meetupsNotRegSoon.data) ? (
                 <CardList
-                  listType="flex"
+                  listType="grid"
                   meetups={meetupsNotRegSoon}
                   error={error}
                   loading={loading}
@@ -140,7 +140,7 @@ class Dashboard extends Component {
               <h4>Recomendados</h4>
               {this.handleEmpy(meetupsRecommendedSoon.data) ? (
                 <CardList
-                  listType="flex"
+                  listType="grid"
                   meetups={meetupsRecommendedSoon}
                   error={error}
                   loading={loading}

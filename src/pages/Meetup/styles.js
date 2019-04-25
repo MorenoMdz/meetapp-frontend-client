@@ -20,7 +20,6 @@ export const Card = styled.div`
     max-width: 700px;
     max-height: 600px;
     margin-bottom: 20px;
-    margin-bottom: 20px;
     border-bottom: 2px solid #e5556e;
     border-bottom-right-radius: 5px;
 
@@ -40,7 +39,7 @@ export const Card = styled.div`
   p {
     padding: 5px;
     margin-bottom: 20px;
-    border-bottom: 2px solid #e5556e;
+    border-bottom: 1px solid #e5556e;
     border-bottom-right-radius: 5px;
   }
 

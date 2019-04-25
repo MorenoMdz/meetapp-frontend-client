@@ -10,7 +10,6 @@ export const Container = styled.div`
     flex-direction: row;
     align-items: center;
     margin: 0 10px;
-    /* border: 2px teal solid; */
   }
 
   .grid {
@@ -61,10 +60,6 @@ export const MeetupCard = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
-
-      small {
-        margin: -10px 0 15px 0;
-      }
     }
   }
 `;

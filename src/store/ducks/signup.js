@@ -7,9 +7,8 @@ export const Types = {
 
 /* Reducer */
 const INITIAL_STATE = {
-  isLogged: false,
   loading: false,
-  error: '',
+  error: [],
 };
 
 export default function signup(state = INITIAL_STATE, action) {
@@ -20,14 +19,13 @@ export default function signup(state = INITIAL_STATE, action) {
       return {
         ...state,
         token: action.payload.token,
-        isLogged: true,
-        error: '',
+        error: [],
         loading: false,
       };
     case Types.FAILURE:
       return {
         ...state,
-        error: action.payload.error,
+        error: action.payload.error.data,
         loading: false,
       };
     default:

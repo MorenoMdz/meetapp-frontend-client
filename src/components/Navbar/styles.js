@@ -70,7 +70,18 @@ export const NavLink = styled(Link)`
   font-size: 1, 2rem;
   font-weight: bold;
   margin: 0 20px 0 25px;
+
   text-decoration: none;
+  cursor: pointer;
+
+  &.dash-btn {
+    @media screen and (max-width: 468px) {
+      display: none;
+    }
+  }
+`;
+
+export const Home = styled(Link)`
   cursor: pointer;
 `;
 

@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { format } from 'date-fns';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -97,11 +98,22 @@ class Meetup extends Component {
 
   render() {
     const {
-      title, description, cover, event_date, address, alreadyRegistered,
+      title,
+      description,
+      cover,
+      event_date,
+      address,
+      total_members,
+      alreadyRegistered,
     } = this.props;
     const {
       error, flash, loading, hideButtons, unsubConfirmation,
     } = this.state;
+    let date;
+    if (event_date) {
+      const localDate = new Date(event_date);
+      date = format(localDate, 'dd/MM/YY', { awareOfUnicodeTokens: true });
+    }
 
     return (
       <Fragment>
@@ -114,19 +126,22 @@ class Meetup extends Component {
               <img src={cover} alt="cover" />
               <Description>
                 <h2>{title}</h2>
-                <small>120 membros</small>
+                <small>
+                  {!total_members
+                    ? 'Nenhum participante'
+                    : total_members === 1
+                      ? '1 membro'
+                      : `${total_members} membros`}
+                </small>
                 <br />
                 <h4>Descrição do evento:</h4>
                 <p>{description}</p>
                 <small>Realizado em:</small>
-                <span>{event_date}</span>
+                <span>{date}</span>
                 <br />
                 <h4>Endereço:</h4>
-                <small>{address.street}</small>
-                <small>{address.number}</small>
-                <small>{address.district}</small>
-                <small>{address.city}</small>
-                <small>{address.state}</small>
+                <small>{`${address.street}, ${address.number}`}</small>
+                <small>{`${address.district}, ${address.city} / ${address.state}`}</small>
                 {error && <Error>{error}</Error>}
                 {flash && <Success>{flash}</Success>}
                 {alreadyRegistered && !hideButtons ? (
@@ -166,6 +181,7 @@ class Meetup extends Component {
 const mapStateToProps = state => ({
   title: state.meetup.title,
   description: state.meetup.description,
+  total_members: state.meetup.total_members,
   preferences: state.meetup.preferences,
   address: {
     ...state.meetup.address,

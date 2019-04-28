@@ -48,7 +48,6 @@ class SignUp extends Component {
 
   render() {
     const { error, loading } = this.props;
-    console.log(error);
     // TODO localização dos erros server side
     return (
       <Container>

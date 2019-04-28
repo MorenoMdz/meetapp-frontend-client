@@ -36,7 +36,6 @@ export function* signupUser(action) {
     yield put(SignupActions.signupSuccess(response.data));
     history.push('/preferences');
   } catch (error) {
-    console.log('from saga: ', error.response);
     yield put(SignupActions.signupFailure(error.response));
   }
 }

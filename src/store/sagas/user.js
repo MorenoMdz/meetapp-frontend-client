@@ -16,12 +16,11 @@ export function* setPreferences(action) {
       preferences: newPreferences,
     });
 
-    // TODO flash msg user update in!
     const data = { ...response.data, flash: 'Preferências salvas com sucesso!' };
 
     yield put(UserActions.setPreferencesSuccess(data));
-    // history.push('/dashboard');
-    yield put(history.push('/dashboard'));
+    history.push('/dashboard');
+    // yield put(history.push('/dashboard'));
   } catch (error) {
     yield put(UserActions.setPreferencesFailure('Algo deu errado, tente novamente'));
   }
@@ -58,7 +57,6 @@ export function* userUpdate(action) {
       preferences: newPreferences,
     });
 
-    // TODO flash msg user update in!
     const data = { ...response.data, flash: 'Atualizado com sucesso!' };
 
     yield put(UserActions.userSuccess(data));
@@ -73,7 +71,6 @@ export function* fetchUser(action) {
     const id = localStorage.getItem('@meetapp:user_id');
     const response = yield call(api.get, `users/${id}`);
     const userPreferences = response.data.preferences;
-    // console.log('from saga:', userPreferences);
 
     const preferences = [
       { id: 1, name: 'Front-end', checked: false },
@@ -89,8 +86,6 @@ export function* fetchUser(action) {
         pref.checked = true;
       }
     }));
-
-    // TODO flash msg user update in!
 
     const data = { ...response.data, preferences };
 
